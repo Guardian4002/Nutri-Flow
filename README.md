@@ -12,6 +12,7 @@ AI-powered nutrition and meal planning app. Works locally with no server needed.
 
 ## Usage
 Download `nutrition-bot.html` and open it in any browser.
+Adding an AI api key is optional for better output
 
 ## License
 © 2025 Guardian4002. All Rights Reserved.
