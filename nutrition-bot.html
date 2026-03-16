@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriFlow — Health & Meal Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080b12; --s1: #10141e; --s2: #181d2a; --s3: #1f2535;
+  --b1: rgba(255,255,255,0.07); --b2: rgba(255,255,255,0.13); --b3: rgba(255,255,255,0.22);
+  --tx: #eef0f8; --tx2: #848da8; --tx3: #50596e;
+  --acc: #7c6cf5; --acc2: #5e50d8; --grn: #3ecf8e; --amb: #f5a623; --red: #f5564a; --cyn: #36c5f0;
+  --r: 12px; --r2: 8px; --r3: 6px;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--tx); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem 5rem; position: relative; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse 55% 35% at 75% -5%, rgba(124,108,245,0.14) 0%, transparent 70%), radial-gradient(ellipse 35% 25% at 10% 85%, rgba(54,197,240,0.08) 0%, transparent 60%); }
+header { width: 100%; max-width: 700px; margin-bottom: 2.5rem; text-align: center; }
+.logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: var(--acc); text-transform: uppercase; margin-bottom: 0.6rem; }
+header h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,5vw,42px); font-weight: 800; line-height: 1.1; }
+header p { margin-top: 0.5rem; font-size: 14px; color: var(--tx2); font-weight: 300; }
+.progress-wrap { width: 100%; max-width: 700px; margin-bottom: 0.6rem; }
+.progress-bar { display: flex; gap: 3px; }
+.pseg { height: 3px; flex: 1; border-radius: 10px; background: var(--s3); transition: background 0.3s; }
+.pseg.done { background: var(--acc); }
+.pseg.active { background: linear-gradient(90deg, var(--acc), var(--cyn)); }
+.step-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tx3); letter-spacing: 0.1em; margin-top: 0.4rem; }
+.card { width: 100%; max-width: 700px; background: var(--s1); border: 1px solid var(--b1); border-radius: var(--r); padding: 2rem 2.25rem; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.card-title { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 0.35rem; }
+.card-sub { font-size: 13.5px; color: var(--tx2); margin-bottom: 1.6rem; line-height: 1.6; }
+.inp-label { display: block; font-size: 11px; font-weight: 500; color: var(--tx3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.35rem; }
+.inp { width: 100%; background: var(--s2); border: 1px solid var(--b2); border-radius: var(--r2); padding: 0.65rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--tx); outline: none; transition: border-color 0.2s; margin-bottom: 1.1rem; }
+.inp:focus { border-color: var(--acc); }
+.inp::placeholder { color: var(--tx3); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.4rem; }
+.grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 1.4rem; }
+.grid4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 1.4rem; }
+.gridAuto { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px,1fr)); gap: 9px; margin-bottom: 1.4rem; }
+.cbtn { background: var(--s2); border: 1px solid var(--b2); border-radius: var(--r2); padding: 0.8rem 0.75rem; color: var(--tx); font-family: 'DM Sans', sans-serif; font-size: 13.5px; cursor: pointer; text-align: center; transition: all 0.15s ease; }
+.cbtn:hover { border-color: var(--acc); background: rgba(124,108,245,0.1); color: #c4bcff; }
+.cbtn.sel { border-color: var(--acc); background: rgba(124,108,245,0.16); color: #c4bcff; }
+.cbtn .ico { font-size: 20px; margin-bottom: 5px; }
+.cbtn .lbl { font-weight: 500; }
+.cbtn .sub { font-size: 11px; color: var(--tx3); margin-top: 3px; }
+.cbtn.sel .sub { color: rgba(196,188,255,0.6); }
+.chk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px,1fr)); gap: 8px; margin-bottom: 1.4rem; }
+.chk { display: flex; align-items: center; gap: 9px; background: var(--s2); border: 1px solid var(--b1); border-radius: var(--r3); padding: 0.6rem 0.85rem; cursor: pointer; font-size: 13.5px; transition: all 0.15s; }
+.chk:hover { border-color: var(--b2); }
+.chk.on { border-color: var(--grn); background: rgba(62,207,142,0.1); color: #a0ffd4; }
+.chkdot { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid var(--b2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.chk.on .chkdot { background: var(--grn); border-color: var(--grn); }
+.chkdot::after { content: ''; width: 7px; height: 4px; border-left: 2px solid #080b12; border-bottom: 2px solid #080b12; transform: rotate(-45deg) translateY(-1px); display: none; }
+.chk.on .chkdot::after { display: block; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; background: var(--acc); color: #fff; border: none; border-radius: var(--r2); padding: 0.7rem 1.6rem; font-family: 'DM Sans', sans-serif; font-size: 14.5px; font-weight: 500; cursor: pointer; transition: all 0.18s; }
+.btn:hover { background: var(--acc2); transform: translateY(-1px); }
+.btn:active { transform: scale(0.98); }
+.btn-g { background: transparent; border: 1px solid var(--b2); color: var(--tx2); padding: 0.6rem 1.1rem; font-size: 13.5px; }
+.btn-g:hover { border-color: var(--b3); background: var(--s2); color: var(--tx); transform: none; }
+.btn-row { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-top: 1.25rem; }
+.divider { border: none; border-top: 1px solid var(--b1); margin: 1.25rem 0; }
+.stats3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin: 1.25rem 0; }
+.stats4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; margin: 1.25rem 0; }
+.stat { background: var(--s2); border: 1px solid var(--b1); border-radius: var(--r2); padding: 0.85rem; text-align: center; }
+.stat .v { font-family: 'Syne', sans-serif; font-size: 21px; font-weight: 700; }
+.stat .l { font-size: 10.5px; color: var(--tx3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+.bmi-num { font-family: 'Syne', sans-serif; font-size: 68px; font-weight: 800; line-height: 1; margin-bottom: 0.4rem; }
+.bmi-cat { font-size: 17px; font-weight: 500; margin-bottom: 0.3rem; }
+.bmi-desc { font-size: 13px; color: var(--tx2); }
+.bmi-bar { height: 7px; border-radius: 10px; background: linear-gradient(90deg, var(--cyn) 0%, var(--grn) 30%, var(--amb) 58%, var(--red) 100%); position: relative; margin: 1.4rem 0 0.4rem; }
+.bmi-ind { position: absolute; top: 50%; transform: translate(-50%,-50%); width: 15px; height: 15px; background: #fff; border-radius: 50%; border: 3px solid var(--bg); transition: left 0.5s ease; }
+.bmi-lbls { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tx3); }
+.warn-box { background: rgba(245,86,74,0.1); border: 1px solid rgba(245,86,74,0.35); border-radius: var(--r2); padding: 1rem 1.2rem; margin: 1rem 0; }
+.warn-box strong { color: var(--red); display: block; margin-bottom: 4px; font-size: 13.5px; }
+.warn-box p { font-size: 13px; color: #ff9f99; line-height: 1.55; }
+.info-box { background: rgba(54,197,240,0.08); border: 1px solid rgba(54,197,240,0.25); border-radius: var(--r2); padding: 1rem 1.2rem; margin: 1rem 0; }
+.info-box strong { color: var(--cyn); display: block; margin-bottom: 4px; font-size: 13px; }
+.info-box p { font-size: 13px; color: rgba(150,230,255,0.85); line-height: 1.55; }
+.macro-bar { margin: 0.75rem 0; }
+.macro-bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+.macro-bar-label span:first-child { color: var(--tx2); }
+.macro-bar-label span:last-child { font-family: 'DM Mono', monospace; font-size: 11px; }
+.macro-track { height: 6px; background: var(--s3); border-radius: 10px; overflow: hidden; }
+.macro-fill { height: 100%; border-radius: 10px; }
+.meal-card { background: var(--s2); border: 1px solid var(--b1); border-radius: var(--r2); padding: 1rem 1.15rem; margin-bottom: 9px; }
+.meal-head { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
+.badge { font-family: 'DM Mono', monospace; font-size: 9.5px; background: rgba(124,108,245,0.2); color: #c4bcff; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.08em; text-transform: uppercase; }
+.meal-kcal { margin-left: auto; font-size: 11.5px; color: var(--amb); font-family: 'DM Mono', monospace; }
+.meal-name { font-family: 'Syne', sans-serif; font-size: 14.5px; font-weight: 600; margin-bottom: 3px; }
+.meal-desc { font-size: 12.5px; color: var(--tx2); line-height: 1.5; }
+.meal-macros { display: flex; gap: 12px; margin-top: 7px; font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--tx3); }
+.mp { color: #7cc6ff; } .mc { color: #ffd27a; } .mf { color: #ff9e7a; }
+.grocery-list { list-style: none; margin: 0.5rem 0 1rem; }
+.grocery-list li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; padding: 0.5rem 0; border-bottom: 1px solid var(--b1); }
+.grocery-list li:last-child { border-bottom: none; }
+.grocery-list li::before { content: ''; width: 6px; height: 6px; background: var(--grn); border-radius: 50%; flex-shrink: 0; }
+.grocery-list .gitem { flex: 1; }
+.grocery-list .gprice { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--amb); }
+.sum-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 0.38rem 0; border-bottom: 1px solid var(--b1); color: var(--tx2); }
+.sum-row:last-child { border-bottom: none; }
+.sum-row span:last-child { color: var(--tx); font-weight: 500; }
+.loading { display: flex; flex-direction: column; align-items: center; padding: 2.5rem 0; gap: 1rem; }
+.spinner { width: 34px; height: 34px; border: 3px solid var(--b2); border-top-color: var(--acc); border-radius: 50%; animation: spin 0.75s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading p { font-size: 13.5px; color: var(--tx2); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:0.35} 50%{opacity:1} }
+.tip-card { background: var(--s2); border-left: 3px solid var(--grn); border-radius: 0 var(--r2) var(--r2) 0; padding: 0.9rem 1.1rem; margin-bottom: 9px; }
+.tip-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grn); letter-spacing: 0.1em; margin-bottom: 4px; }
+.tip-card p { font-size: 13.5px; line-height: 1.6; }
+.cal-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0; border-bottom: 1px solid var(--b1); font-size: 13.5px; }
+.cal-row:last-child { border-bottom: none; }
+.cal-row .food { flex: 1; }
+.cal-row .kcal { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--amb); }
+.tag { display: inline-flex; align-items: center; font-size: 11.5px; padding: 3px 10px; border-radius: 100px; margin-right: 5px; margin-bottom: 5px; }
+.tag-pur { background: rgba(124,108,245,0.15); color: #c4bcff; }
+.tag-grn { background: rgba(62,207,142,0.15); color: #a0ffd4; }
+.tag-amb { background: rgba(245,166,35,0.15); color: #ffd27a; }
+.tag-cyn { background: rgba(54,197,240,0.15); color: #9de8ff; }
+.section-hd { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--tx3); text-transform: uppercase; letter-spacing: 0.1em; margin: 1.4rem 0 0.75rem; }
+.err-box { background: rgba(245,86,74,0.1); border: 1px solid rgba(245,86,74,0.3); border-radius: var(--r2); padding: 0.85rem 1.1rem; font-size: 13px; color: #ff9f99; margin-bottom: 1rem; }
+.water-display { display: flex; align-items: center; gap: 14px; background: rgba(54,197,240,0.08); border: 1px solid rgba(54,197,240,0.2); border-radius: var(--r2); padding: 1rem 1.25rem; margin: 1rem 0; }
+.water-icon { font-size: 28px; }
+.water-text .wv { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--cyn); }
+.water-text .wl { font-size: 12px; color: var(--tx2); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div id="api-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:var(--s1);border:1px solid var(--b2);border-radius:var(--r);padding:1.75rem 2rem;width:100%;max-width:420px;position:relative;">
+    <button onclick="closeApiModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--tx2);font-size:18px;cursor:pointer;line-height:1;padding:4px 6px;border-radius:4px;" onmouseover="this.style.color='var(--tx)'" onmouseout="this.style.color='var(--tx2)'">✕</button>
+    <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:0.3rem;">API Key</div>
+    <div style="font-size:12.5px;color:var(--tx2);margin-bottom:1.1rem;line-height:1.6;">Supports <b style="color:var(--grn)">Anthropic Claude</b> (<code style="font-family:'DM Mono',monospace;font-size:11px">sk-ant-...</code>) and <b style="color:#4285f4">Google Gemini</b> (<code style="font-family:'DM Mono',monospace;font-size:11px">AIzaSy...</code>). The app auto-detects which to use. Your key never leaves this browser.</div>
+    <label style="display:block;font-size:11px;font-weight:500;color:var(--tx3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">API Key</label>
+    <input id="modal-key" type="password" placeholder="sk-ant-... or AIzaSy..." autocomplete="off" spellcheck="false"
+      style="width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r2);padding:0.65rem 1rem;font-family:'DM Mono',monospace;font-size:13px;color:var(--tx);outline:none;margin-bottom:0.4rem;transition:border-color 0.2s;"
+      onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--b2)'"
+      oninput="updateModalProvider()">
+    <div id="modal-provider" style="font-family:'DM Mono',monospace;font-size:11px;min-height:18px;margin-bottom:0.6rem;"></div>
+    <div id="modal-err" style="font-size:12.5px;color:#ff9f99;margin-bottom:0.75rem;min-height:0;"></div>
+    <hr style="border:none;border-top:1px solid var(--b1);margin:0.75rem 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:0.25rem">Dataset URL <span style="font-size:10px;color:var(--tx3);font-family:'DM Mono',monospace;font-weight:400">(optional)</span></div>
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:0.5rem;line-height:1.5">Override the default dataset with your own hosted <code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--cyn)">nutriflow-data.json</code>. Leave blank to use the built-in dataset.</div>
+    <input id="modal-ds" type="text" placeholder="https://your-server.com/nutriflow-data.json" autocomplete="off"
+      style="width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r2);padding:0.6rem 0.9rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--tx);outline:none;margin-bottom:0.75rem;transition:border-color 0.2s;"
+      onfocus="this.style.borderColor='var(--cyn)'" onblur="this.style.borderColor='var(--b2)'" value="${S.datasetUrl}">
+    <div style="display:flex;gap:8px;margin-bottom:0.5rem">
+      <button onclick="saveDatasetUrl()" style="flex:1;background:var(--s2);color:var(--tx2);border:1px solid var(--b2);border-radius:var(--r2);padding:0.5rem;font-family:'DM Sans',sans-serif;font-size:12.5px;cursor:pointer" onmouseover="this.style.borderColor='var(--cyn)';this.style.color='var(--cyn)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--tx2)'">Save URL</button>
+      <button onclick="testDataset()" id="ds-test-btn" style="background:var(--s2);color:var(--tx2);border:1px solid var(--b2);border-radius:var(--r2);padding:0.5rem 0.85rem;font-family:'DM Sans',sans-serif;font-size:12.5px;cursor:pointer" onmouseover="this.style.color='var(--tx)'" onmouseout="this.style.color='var(--tx2)'">Test Dataset</button>
+    </div>
+    <div id="ds-status" style="font-family:'DM Mono',monospace;font-size:10.5px;min-height:16px;margin-bottom:0.25rem"></div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="saveApiKey()" style="flex:1;background:var(--acc);color:#fff;border:none;border-radius:var(--r2);padding:0.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--acc2)'" onmouseout="this.style.background='var(--acc)'">Save key</button>
+      <button onclick="testApiKey()" id="test-btn" style="background:var(--s2);color:var(--tx2);border:1px solid var(--b2);border-radius:var(--r2);padding:0.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--b3)';this.style.color='var(--tx)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--tx2)'">Test</button>
+      <button onclick="clearApiKey()" style="background:transparent;color:var(--tx3);border:1px solid var(--b1);border-radius:var(--r2);padding:0.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='rgba(245,86,74,0.4)'" onmouseout="this.style.color='var(--tx3)';this.style.borderColor='var(--b1)'">Clear</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div style="position:relative;">
+    <button id="api-btn" onclick="openApiModal()" title="API Key settings"
+      style="position:absolute;top:0;right:0;background:var(--s2);border:1px solid var(--b1);border-radius:var(--r2);padding:6px 10px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.15s;"
+      onmouseover="this.style.borderColor='var(--b2)';this.style.background='var(--s3)'" onmouseout="this.style.borderColor='var(--b1)';this.style.background='var(--s2)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tx2)"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M4.93 4.93a10 10 0 0 1 14.14 14.14"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+      <span id="api-btn-label" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);letter-spacing:0.06em;">API KEY</span>
+      <span id="api-dot" style="display:none;width:6px;height:6px;border-radius:50%;background:var(--grn);flex-shrink:0;"></span>
+    </button>
+    <div class="logo">NutriFlow v2</div>
+    <h1>Health &amp; Meal Planner</h1>
+    <p>AI-powered nutrition — personalized for you</p>
+  </div>
+</header>
+<div class="progress-wrap">
+  <div class="progress-bar" id="pbar"></div>
+  <div class="step-label" id="plbl"></div>
+</div>
+<div id="app"></div>
+
+<script>
+const S = {
+  step:'start', path:null,
+  apiKey: '', datasetUrl: '',
+  weight:'', height:'', age:'', gender:'',
+  goal:'', numMeals:0, diets:[], allergies:[],
+  weekly:false, budget:'No need', lifestyle:'',
+  bmr:0, tdee:0, bmi:0, adjTDEE:0,
+  macros:{p:0,c:0,f:0,pPct:0,cPct:0,fPct:0},
+  mealPlan:null, grocery:null, costs:null, error:null,
+  planError:null, groceryError:null, costError:null,
+  planSource: null // 'dataset' | 'ai'
+};
+
+// ── DATASET ENGINE ─────────────────────────────────────────────────────────
+let DB = null; // loaded dishes array
+
+const DEFAULT_DATASET_URL = 'https://raw.githubusercontent.com/Guardian4002/Nutri-Flow/main/nutriflow-data.json';
+
+async function loadDataset() {
+  if (DB) return DB;
+
+  // 1. User-provided custom URL takes priority
+  if (S.datasetUrl) {
+    try {
+      const r = await fetch(S.datasetUrl);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      DB = d.dishes; console.log(`Dataset loaded from custom URL (${DB.length} dishes)`); return DB;
+    } catch(e) { console.warn('Custom dataset failed, falling back:', e); }
+  }
+
+  // 2. Default: Guardian's GitHub dataset
+  try {
+    const r = await fetch(DEFAULT_DATASET_URL);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    DB = d.dishes; console.log(`Dataset loaded from GitHub (${DB.length} dishes)`); return DB;
+  } catch(e) { console.warn('GitHub dataset failed, trying local:', e); }
+
+  // 3. Local file fallback (same folder, offline use)
+  try {
+    const r = await fetch('./nutriflow-data.json');
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    DB = d.dishes; console.log(`Dataset loaded from local file (${DB.length} dishes)`); return DB;
+  } catch(e) { console.warn('No dataset available, will use AI:', e); }
+
+  return null;
+}
+
+const MEAL_ORDER = ['Breakfast','Morning Snack','Lunch','Afternoon Snack','Dinner','Evening Snack'];
+
+function pickMealsFromDataset(dishes, numMeals, goal, diets, allergies, budgetStr, perMeal) {
+  const budgetMax = budgetStr === 'No need' ? 999 : parseInt(budgetStr);
+  const allergySet = new Set(allergies);
+  const perMealBudget = budgetMax === 999 ? 999 : Math.floor(budgetMax / numMeals) + 3;
+
+  // Map diet selections to dish diet_tag requirements
+  const dietMap = {
+    'Vegetarian':          d => d.diet_tags.includes('Vegetarian') || d.diet_tags.includes('Vegan'),
+    'Vegan':               d => d.diet_tags.includes('Vegan'),
+    'High Protein':        d => d.diet_tags.includes('High Protein'),
+    'Low Carbs':           d => d.diet_tags.includes('Low Carbs'),
+    'Halal':               d => d.diet_tags.includes('Halal'),
+    'No Gluten':           d => d.diet_tags.includes('No Gluten'),
+    'No Milk':             d => d.diet_tags.includes('No Milk'),
+    'No Preferences':      d => true,
+    'Allergy Constraint':  d => true,
+  };
+
+  // A dish passes diet filter if it matches ALL selected non-allergy diets
+  const activeDiets = diets.filter(d => d !== 'Allergy Constraint' && d !== 'No Preferences');
+
+  function dietOk(dish) {
+    if (activeDiets.length === 0) return true;
+    return activeDiets.every(diet => dietMap[diet] ? dietMap[diet](dish) : true);
+  }
+
+  function allergyOk(dish) {
+    return !dish.allergens.some(a => allergySet.has(a));
+  }
+
+  function budgetOk(dish) {
+    return dish.budget_rm <= perMealBudget;
+  }
+
+  function goalOk(dish) {
+    return dish.goal_fit.includes(goal) || dish.goal_fit.includes('Maintain');
+  }
+
+  function calOk(dish, target) {
+    // Accept dishes within ±40% of per-meal target
+    return dish.calories >= target * 0.5 && dish.calories <= target * 1.5;
+  }
+
+  // Assign meal slots based on numMeals
+  const slotNames = {
+    2: ['Lunch','Dinner'],
+    3: ['Breakfast','Lunch','Dinner'],
+    4: ['Breakfast','Lunch','Afternoon Snack','Dinner'],
+    5: ['Breakfast','Morning Snack','Lunch','Afternoon Snack','Dinner'],
+  }[numMeals] || ['Breakfast','Lunch','Dinner'];
+
+  const result = [];
+  const usedIds = new Set();
+
+  for (const slot of slotNames) {
+    // Determine if slot is a snack
+    const isSnack = slot.includes('Snack');
+    const snackTarget = perMeal * 0.5;
+    const target = isSnack ? snackTarget : perMeal;
+
+    // Filter pool for this slot
+    let pool = dishes.filter(d =>
+      d.meal_types.includes(slot) &&
+      dietOk(d) && allergyOk(d) && budgetOk(d) && goalOk(d) && !usedIds.has(d.id)
+    );
+
+    // Relax calorie constraint if needed
+    let calPool = pool.filter(d => calOk(d, target));
+    if (calPool.length === 0) calPool = pool; // fall back to any calorie
+    if (calPool.length === 0) {
+      // Widen: try any meal_type that overlaps
+      calPool = dishes.filter(d =>
+        dietOk(d) && allergyOk(d) && !usedIds.has(d.id)
+      );
+    }
+
+    if (calPool.length === 0) return null; // can't build plan from dataset
+
+    // Pick random
+    const pick = calPool[Math.floor(Math.random() * calPool.length)];
+    usedIds.add(pick.id);
+    result.push({ meal: slot, name: pick.name, description: pick.description,
+      calories: pick.calories, protein_g: pick.protein_g, carbs_g: pick.carbs_g, fat_g: pick.fat_g,
+      ingredients: pick.ingredients || [], _source: 'dataset' });
+  }
+  return result;
+}
+
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+// ── END DATASET ENGINE ──────────────────────────────────────────────────────
+
+
+const FLOW_MEAL = ['start','menu','goal','meals','diet','allergy','weekly','budget','lifestyle','summary','plan','post'];
+const FLOW_BMI  = ['start','menu','bmi'];
+const FLOW_TIPS = ['start','menu','tips'];
+const FLOW_CAL  = ['start','menu','calinfo'];
+
+function progress() {
+  let steps, cur;
+  const flow =
+    S.path==='bmi'  ? FLOW_BMI  :
+    S.path==='tips' ? FLOW_TIPS :
+    S.path==='cal'  ? FLOW_CAL  : FLOW_MEAL;
+  steps = flow.length;
+  const idx = flow.indexOf(S.step);
+  cur = idx === -1 ? steps : idx + 1;
+  document.getElementById('pbar').innerHTML =
+    Array.from({length:steps},(_,i)=>`<div class="pseg ${i<cur-1?'done':i===cur-1?'active':''}"></div>`).join('');
+  document.getElementById('plbl').textContent = `STEP ${cur} / ${steps}`;
+}
+
+function render() {
+  progress();
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  app.appendChild(buildScreen());
+}
+
+function buildScreen() {
+  const map = {start:sStart,menu:sMenu,bmi:sBMI,goal:sGoal,meals:sMeals,diet:sDiet,allergy:sAllergy,weekly:sWeekly,budget:sBudget,lifestyle:sLifestyle,summary:sSummary,plan:sPlan,post:sPost,tips:sTips,calinfo:sCalInfo,done:sDone};
+  return (map[S.step]||sStart)();
+}
+
+function mkCard(html) { const d=document.createElement('div'); d.className='card'; d.innerHTML=html; return d; }
+
+function calcBMI(w,h) { return +(w/((h/100)**2)).toFixed(1); }
+function calcBMR(w,h,a,g) { return g==='Male' ? Math.round(10*w+6.25*h-5*a+5) : Math.round(10*w+6.25*h-5*a-161); }
+function calcTDEE(bmr,ls) { return Math.round(bmr*({'Sedentary':1.2,'Moderate':1.55,'Active':1.722}[ls]||1.2)); }
+function calcAdj(tdee,g) { return g==='Loss'?tdee-400:g==='Gain'?tdee+300:tdee; }
+function calcMacros(adjT, goal) {
+  const splits = {Loss:{p:[.30,.35],c:[.35,.40],f:[.25,.30]},Maintain:{p:[.30,.30],c:[.45,.50],f:[.20,.25]},Gain:{p:[.25,.30],c:[.40,.50],f:[.25,.30]}};
+  const s = splits[goal]||splits['Maintain'];
+  const pP=(s.p[0]+s.p[1])/2, cP=(s.c[0]+s.c[1])/2, fP=(s.f[0]+s.f[1])/2;
+  return {p:Math.round((adjT*pP)/4), c:Math.round((adjT*cP)/4), f:Math.round((adjT*fP)/9), pPct:Math.round(pP*100), cPct:Math.round(cP*100), fPct:Math.round(fP*100)};
+}
+function bmiInfo(bmi) {
+  if(bmi<18.5) return {cat:'Underweight',color:'var(--cyn)',desc:'Below the healthy range'};
+  if(bmi<25)   return {cat:'Normal weight',color:'var(--grn)',desc:'Within healthy range — great job!'};
+  if(bmi<30)   return {cat:'Overweight',color:'var(--amb)',desc:'Slightly above the healthy range'};
+  return {cat:'Obese',color:'var(--red)',desc:'Well above healthy range — consider medical advice'};
+}
+function go(step) { S.step=step; render(); }
+
+function sStart() {
+  return mkCard(`
+    <div class="card-title">Your body stats</div>
+    <div class="card-sub">Used to calculate your BMI, BMR and personalized targets.</div>
+    <label class="inp-label">Weight (kg)</label>
+    <input class="inp" id="iw" type="number" min="20" max="300" placeholder="e.g. 70" value="${S.weight}">
+    <label class="inp-label">Height (cm)</label>
+    <input class="inp" id="ih" type="number" min="100" max="250" placeholder="e.g. 175" value="${S.height}">
+    <label class="inp-label">Age</label>
+    <input class="inp" id="ia" type="number" min="10" max="110" placeholder="e.g. 28" value="${S.age}">
+    <label class="inp-label" style="margin-bottom:0.4rem">Gender</label>
+    <div class="grid2">
+      <button class="cbtn ${S.gender==='Male'?'sel':''}" onclick="sg('Male',this)"><div class="lbl">Male</div></button>
+      <button class="cbtn ${S.gender==='Female'?'sel':''}" onclick="sg('Female',this)"><div class="lbl">Female</div></button>
+    </div>
+    <div id="serr"></div>
+    <div class="btn-row" style="margin-top:0.25rem"><button class="btn" onclick="submitStart()">Continue →</button></div>
+  `);
+}
+function sg(g,el) { document.querySelectorAll('#app .cbtn').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); S.gender=g; }
+function submitStart() {
+  const w=parseFloat(document.getElementById('iw').value),h=parseFloat(document.getElementById('ih').value),a=parseInt(document.getElementById('ia').value);
+  if(!w||!h||!a||!S.gender){document.getElementById('serr').innerHTML='<div class="err-box">Please complete all fields.</div>';return;}
+  S.weight=w; S.height=h; S.age=a; S.bmi=calcBMI(w,h); S.bmr=calcBMR(w,h,a,S.gender); go('menu');
+}
+
+function sMenu() {
+  const items=[{v:'bmi',ico:'⚖️',lbl:'BMI Calculator',sub:'Check body mass index'},{v:'meal',ico:'🥗',lbl:'Daily Meal Planner',sub:'AI-generated plan'},{v:'tips',ico:'💡',lbl:'Healthy Tips',sub:'Evidence-based advice'},{v:'cal',ico:'🔥',lbl:'Calorie Info',sub:'Food calorie reference'},{v:'exit',ico:'👋',lbl:'Exit',sub:'Maybe later'}];
+  return mkCard(`
+    <div class="card-title">Main menu</div>
+    <div class="card-sub">BMR: <b style="color:var(--cyn)">${S.bmr} kcal/day</b> &nbsp;·&nbsp; What would you like to do?</div>
+    <div class="gridAuto">
+      ${items.map(i=>`<button class="cbtn" onclick="pickMenu('${i.v}')"><div class="ico">${i.ico}</div><div class="lbl">${i.lbl}</div><div class="sub">${i.sub}</div></button>`).join('')}
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('start')">← Back</button></div>
+  `);
+}
+function pickMenu(v) {
+  if(v==='exit'){S.path=null;S.step='done';render();return;}
+  S.path = v==='bmi'?'bmi':v==='tips'?'tips':v==='cal'?'cal':'meal';
+  S.step = v==='bmi'?'bmi':v==='tips'?'tips':v==='cal'?'calinfo':'goal';
+  render();
+}
+
+function sBMI() {
+  const {cat,color,desc}=bmiInfo(S.bmi);
+  const pct=Math.min(100,Math.max(0,((S.bmi-10)/30)*100));
+  const obese=S.bmi>=30;
+  return mkCard(`
+    <div class="card-title">BMI Result</div>
+    <div style="text-align:center;padding:1.5rem 0 1rem">
+      <div class="bmi-num" style="color:${color}">${S.bmi}</div>
+      <div class="bmi-cat" style="color:${color}">${cat}</div>
+      <div class="bmi-desc">${desc}</div>
+    </div>
+    ${obese?'<div class="warn-box"><strong>⚠ Obesity Warning (BMI ≥ 30)</strong><p>Your BMI indicates obesity, which raises the risk of type 2 diabetes, cardiovascular disease, hypertension and joint problems. Please consult a healthcare professional for a medically supervised weight management plan.</p></div>':''}
+    <div class="bmi-bar"><div class="bmi-ind" style="left:${pct}%"></div></div>
+    <div class="bmi-lbls"><span>Underweight &lt;18.5</span><span>Normal 18.5–25</span><span>Overweight 25–30</span><span>Obese ≥30</span></div>
+    <div class="stats3" style="margin-top:1.5rem">
+      <div class="stat"><div class="v">${S.weight}kg</div><div class="l">Weight</div></div>
+      <div class="stat"><div class="v">${S.height}cm</div><div class="l">Height</div></div>
+      <div class="stat"><div class="v">${S.bmr}</div><div class="l">BMR kcal</div></div>
+    </div>
+    <div class="water-display">
+      <div class="water-icon">💧</div>
+      <div class="water-text"><div class="wv">${(S.weight*0.03).toFixed(2)} L</div><div class="wl">Daily water intake (weight × 0.03)</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="pickMenu('meal')">Try Meal Planner →</button>
+      <button class="btn btn-g" onclick="go('menu')">← Menu</button>
+    </div>
+  `);
+}
+
+function sGoal() {
+  const opts=[{v:'Loss',ico:'📉',d:'TDEE − 400 kcal'},{v:'Maintain',ico:'⚖️',d:'Maintain weight'},{v:'Gain',ico:'📈',d:'TDEE + 300 kcal'}];
+  return mkCard(`
+    <div class="card-title">Weight goal</div>
+    <div class="card-sub">Sets your daily calorie target and macro ratios.</div>
+    <div class="grid3">
+      ${opts.map(o=>`<button class="cbtn ${S.goal===o.v?'sel':''}" onclick="setGoal('${o.v}')"><div class="ico">${o.ico}</div><div class="lbl">${o.v}</div><div class="sub">${o.d}</div></button>`).join('')}
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('menu')">← Back</button></div>
+  `);
+}
+function setGoal(g) { S.goal=g; go('meals'); }
+
+function sMeals() {
+  return mkCard(`
+    <div class="card-title">Meals per day</div>
+    <div class="card-sub">Calories will be distributed across these meals.</div>
+    <div class="grid4">
+      ${[2,3,4,5].map(n=>`<button class="cbtn ${S.numMeals===n?'sel':''}" onclick="setMeals(${n})"><div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800">${n}</div><div class="sub">meals</div></button>`).join('')}
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('goal')">← Back</button></div>
+  `);
+}
+function setMeals(n) { S.numMeals=n; go('diet'); }
+
+function sDiet() {
+  const opts=[{v:'No Preferences',ico:'🍽️',d:'Balanced'},{v:'Vegetarian',ico:'🌿',d:'No meat'},{v:'High Protein',ico:'🥩',d:'Muscle focus'},{v:'Low Carbs',ico:'🥦',d:'Keto-friendly'},{v:'Halal',ico:'☪️',d:'Halal certified'},{v:'No Gluten',ico:'🌾',d:'Gluten-free'},{v:'No Milk',ico:'🥛',d:'Dairy-free'},{v:'Allergy Constraint',ico:'⚠️',d:'Custom allergies'}];
+  return mkCard(`
+    <div class="card-title">Dietary preferences</div>
+    <div class="card-sub">Select all that apply — you can pick more than one.</div>
+    <div class="gridAuto">
+      ${opts.map(o=>`<button class="cbtn ${S.diets.includes(o.v)?'sel':''}" onclick="toggleDiet('${o.v}',this)"><div class="ico">${o.ico}</div><div class="lbl" style="font-size:12.5px">${o.v}</div><div class="sub">${o.d}</div></button>`).join('')}
+    </div>
+    <div id="derr"></div>
+    <div class="btn-row">
+      <button class="btn" onclick="submitDiet()">Continue →</button>
+      <button class="btn btn-g" onclick="go('meals')">← Back</button>
+    </div>
+  `);
+}
+function toggleDiet(v, el) {
+  el.classList.toggle('sel');
+  S.diets = S.diets.includes(v) ? S.diets.filter(d=>d!==v) : [...S.diets, v];
+}
+function submitDiet() {
+  if (S.diets.length === 0) { document.getElementById('derr').innerHTML='<div class="err-box">Please select at least one preference.</div>'; return; }
+  go(S.diets.includes('Allergy Constraint') ? 'allergy' : 'weekly');
+}
+
+function sAllergy() {
+  const items=['Peanuts','Tree Nuts','Milk','Eggs','Wheat/Gluten','Soy','Fish','Shellfish','Sesame','Mustard'];
+  return mkCard(`
+    <div class="card-title">Select allergies</div>
+    <div class="card-sub">These will be excluded from your plan.</div>
+    <div class="chk-grid">
+      ${items.map(a=>`<label class="chk ${S.allergies.includes(a)?'on':''}" onclick="toggleAllergy('${a}',this)"><div class="chkdot"></div><span>${a}</span></label>`).join('')}
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="go('weekly')">Continue →</button>
+      <button class="btn btn-g" onclick="go('diet')">← Back</button>
+    </div>
+  `);
+}
+function toggleAllergy(n,el) { el.classList.toggle('on'); S.allergies=S.allergies.includes(n)?S.allergies.filter(a=>a!==n):[...S.allergies,n]; }
+
+function sWeekly() {
+  return mkCard(`
+    <div class="card-title">Plan duration</div>
+    <div class="card-sub">Daily or full 7-day weekly plan?</div>
+    <div class="grid2">
+      <button class="cbtn ${!S.weekly?'sel':''}" onclick="setWeekly(false)"><div class="ico">📅</div><div class="lbl">Daily</div><div class="sub">Single day</div></button>
+      <button class="cbtn ${S.weekly?'sel':''}" onclick="setWeekly(true)"><div class="ico">🗓️</div><div class="lbl">Weekly</div><div class="sub">7-day variety</div></button>
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('diet')">← Back</button></div>
+  `);
+}
+function setWeekly(b) { S.weekly=b; go('budget'); }
+
+function sBudget() {
+  const opts=[{v:'10 RM',ico:'💰',d:'Budget friendly'},{v:'15 RM',ico:'💵',d:'Mid-range'},{v:'20 RM',ico:'💎',d:'Premium'},{v:'No need',ico:'🔓',d:'No limit'}];
+  return mkCard(`
+    <div class="card-title">Daily meal budget</div>
+    <div class="card-sub">Suggest meals within your budget (Malaysian Ringgit).</div>
+    <div class="grid4">
+      ${opts.map(o=>`<button class="cbtn ${S.budget===o.v?'sel':''}" onclick="setBudget('${o.v}')"><div class="ico">${o.ico}</div><div class="lbl">${o.v}</div><div class="sub">${o.d}</div></button>`).join('')}
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('weekly')">← Back</button></div>
+  `);
+}
+function setBudget(b) { S.budget=b; go('lifestyle'); }
+
+function sLifestyle() {
+  const opts=[{v:'Sedentary',ico:'🪑',d:'×1.2 — desk job'},{v:'Moderate',ico:'🚶',d:'×1.55 — light exercise'},{v:'Active',ico:'🏃',d:'×1.722 — intense daily'}];
+  return mkCard(`
+    <div class="card-title">Activity level</div>
+    <div class="card-sub">Determines your TDEE (Total Daily Energy Expenditure).</div>
+    <div class="grid3">
+      ${opts.map(o=>`<button class="cbtn ${S.lifestyle===o.v?'sel':''}" onclick="setLifestyle('${o.v}')"><div class="ico">${o.ico}</div><div class="lbl">${o.v}</div><div class="sub">${o.d}</div></button>`).join('')}
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('budget')">← Back</button></div>
+  `);
+}
+function setLifestyle(ls) {
+  S.lifestyle=ls; S.tdee=calcTDEE(S.bmr,ls); S.adjTDEE=calcAdj(S.tdee,S.goal); S.macros=calcMacros(S.adjTDEE,S.goal); go('summary');
+}
+
+function sSummary() {
+  const m=S.macros, perMeal=Math.round(S.adjTDEE/S.numMeals), water=(S.weight*0.03).toFixed(2);
+  return mkCard(`
+    <div class="card-title">Your nutrition profile</div>
+    <div class="card-sub">Review before generating your plan.</div>
+    <div class="stats4">
+      <div class="stat"><div class="v" style="color:var(--cyn)">${S.bmr}</div><div class="l">BMR</div></div>
+      <div class="stat"><div class="v">${S.tdee}</div><div class="l">TDEE</div></div>
+      <div class="stat"><div class="v" style="color:var(--grn)">${S.adjTDEE}</div><div class="l">Target</div></div>
+      <div class="stat"><div class="v" style="color:var(--amb)">${perMeal}</div><div class="l">Per Meal</div></div>
+    </div>
+    <div class="section-hd">Macro targets — ${S.goal}</div>
+    <div class="macro-bar"><div class="macro-bar-label"><span>Protein</span><span style="color:#7cc6ff">${m.p}g · ${m.pPct}%</span></div><div class="macro-track"><div class="macro-fill" style="width:${m.pPct}%;background:#7cc6ff"></div></div></div>
+    <div class="macro-bar"><div class="macro-bar-label"><span>Carbohydrates</span><span style="color:#ffd27a">${m.c}g · ${m.cPct}%</span></div><div class="macro-track"><div class="macro-fill" style="width:${m.cPct}%;background:#ffd27a"></div></div></div>
+    <div class="macro-bar"><div class="macro-bar-label"><span>Fat</span><span style="color:#ff9e7a">${m.f}g · ${m.fPct}%</span></div><div class="macro-track"><div class="macro-fill" style="width:${m.fPct}%;background:#ff9e7a"></div></div></div>
+    <div class="water-display">
+      <div class="water-icon">💧</div>
+      <div class="water-text"><div class="wv">${water} L/day</div><div class="wl">Water intake (weight × 0.03)</div></div>
+    </div>
+    <hr class="divider">
+    <div class="sum-row"><span>Gender / Age</span><span>${S.gender}, ${S.age} yrs</span></div>
+    <div class="sum-row"><span>Weight / Height</span><span>${S.weight}kg / ${S.height}cm</span></div>
+    <div class="sum-row"><span>Goal / Lifestyle</span><span>${S.goal} · ${S.lifestyle}</span></div>
+    <div class="sum-row"><span>Meals · Duration</span><span>${S.numMeals} meals · ${S.weekly?'Weekly':'Daily'}</span></div>
+    <div class="sum-row"><span>Diet</span><span>${S.diets.join(', ')}</span></div>
+    ${S.allergies.length?`<div class="sum-row"><span>Allergies</span><span>${S.allergies.join(', ')}</span></div>`:''}
+    <div class="sum-row"><span>Budget</span><span>${S.budget}</span></div>
+    <div class="btn-row" style="margin-top:1.25rem">
+      <button class="btn" onclick="generatePlan()">Generate Meal Plan ✦</button>
+      <button class="btn btn-g" onclick="go('lifestyle')">← Back</button>
+    </div>
+  `);
+}
+
+async function callAI(prompt, maxTokens) {
+  const key = S.apiKey;
+  const isGoogle = key && key.startsWith('AIza');
+  const isAnthropic = key && key.startsWith('sk-');
+
+  if (isGoogle) {
+    // First discover which models are available for this key
+    let model = S._geminiModel || null;
+    if (!model) {
+      const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`);
+      const listData = await listRes.json();
+      if (listData.error) throw new Error(`Key error: ${listData.error.message}`);
+      // Find first model that supports generateContent
+      const available = (listData.models || [])
+        .filter(m => m.supportedGenerationMethods?.includes('generateContent'))
+        .map(m => m.name.replace('models/',''));
+      if (!available.length) throw new Error('No generateContent models found for this key. Check that Gemini API is enabled at console.cloud.google.com.');
+      // Prefer flash models for speed
+      model = available.find(m => m.includes('flash')) || available.find(m => m.includes('pro')) || available[0];
+      S._geminiModel = model; // cache it
+    }
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        contents:[{parts:[{text: prompt}]}],
+        generationConfig:{maxOutputTokens: maxTokens, temperature: 0.7}
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(`Gemini (${model}): ${data.error.message}`);
+    if (!data.candidates?.[0]) throw new Error(`Gemini (${model}): no candidates returned`);
+    return data.candidates[0].content.parts[0].text;
+  } else if (isAnthropic) {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'x-api-key': key,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens: maxTokens, messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(`Anthropic error: ${data.error.message || JSON.stringify(data.error)}`);
+    return data.content.map(b=>b.text||'').join('');
+  } else {
+    // claude.ai proxy (no key needed when running inside claude.ai)
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens: maxTokens, messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(`API error: ${data.error.message || JSON.stringify(data.error)}`);
+    return data.content.map(b=>b.text||'').join('');
+  }
+}
+
+async function generatePlan() {
+  S.step='plan'; S.mealPlan=null; S.planError=null; S.planSource=null; render();
+  const perMeal = Math.round(S.adjTDEE / S.numMeals);
+
+  // ── Try dataset first ──────────────────────────────────────────
+  try {
+    const dishes = await loadDataset();
+    if (dishes && dishes.length > 0) {
+      if (S.weekly) {
+        const days = [];
+        for (const day of DAYS) {
+          const meals = pickMealsFromDataset(dishes, S.numMeals, S.goal, S.diets, S.allergies, S.budget, perMeal);
+          if (!meals) { break; } // fall through to AI
+          days.push({ day, meals });
+        }
+        if (days.length === 7) {
+          S.mealPlan = days; S.planSource = 'dataset'; render(); return;
+        }
+      } else {
+        const meals = pickMealsFromDataset(dishes, S.numMeals, S.goal, S.diets, S.allergies, S.budget, perMeal);
+        if (meals) { S.mealPlan = meals; S.planSource = 'dataset'; render(); return; }
+      }
+    }
+  } catch(e) { console.warn('Dataset error, falling back to AI:', e); }
+
+  // ── Fall back to AI ────────────────────────────────────────────
+  S.planSource = 'ai';
+  const m = S.macros;
+  const allergyNote = S.allergies.length ? `Avoid allergens: ${S.allergies.join(', ')}.` : '';
+  const budgetNote  = S.budget !== 'No need' ? `Budget: ${S.budget}/day (Malaysian Ringgit).` : '';
+  const prompt = `You are a nutrition expert. ${S.weekly ? 'Generate a 7-day meal plan.' : 'Generate a single-day plan.'}
+Profile: ${S.goal} goal, diet: ${S.diets.join(', ')}, ${S.lifestyle} activity, ${S.numMeals} meals/day.
+Targets: ${S.adjTDEE} kcal, P~${m.p}g(${m.pPct}%), C~${m.c}g(${m.cPct}%), F~${m.f}g(${m.fPct}%). Each meal ~${perMeal} kcal. ${allergyNote} ${budgetNote}
+Reply ONLY with a JSON array, no markdown.
+${S.weekly
+  ? 'Each: {"day":"Monday","meals":[{"meal":"Breakfast","name":"...","description":"...","calories":N,"protein_g":N,"carbs_g":N,"fat_g":N},...]}. 7 elements.'
+  : `Each: {"meal":"Breakfast","name":"...","description":"...","calories":N,"protein_g":N,"carbs_g":N,"fat_g":N}. Exactly ${S.numMeals} elements.`}`;
+  try {
+    const txt = await callAI(prompt, 2000);
+    S.mealPlan = JSON.parse(txt.replace(/```json|```/g,'').trim()); render();
+  } catch(e) { S.planError = e.message; render(); }
+}
+
+async function generateGrocery() {
+  S.step='grocery'; S.grocery=null; S.costs=null; S.groceryError=null; render();
+  const meals = S.weekly ? S.mealPlan.flatMap(d=>d.meals) : S.mealPlan;
+
+  // ── Dataset: build grocery from embedded ingredients ─────────
+  if (S.planSource === 'dataset') {
+    const merged = {};
+    for (const meal of meals) {
+      for (const ing of (meal.ingredients || [])) {
+        const key = ing.item.toLowerCase();
+        if (!merged[key]) merged[key] = { item: ing.item, amount: ing.amount, estimated_cost_rm: estimateCost(ing.item) };
+      }
+    }
+    S.grocery = Object.values(merged);
+    // Build cost breakdown from meal data directly
+    S.costs = {
+      total_rm: parseFloat(meals.reduce((a,m)=>a+(m.budget_rm||estimateCost(m.name)),0).toFixed(2)),
+      breakdown: meals.map(m=>({ meal: m.meal+': '+m.name, cost_rm: m.budget_rm||estimateCost(m.name), notes: 'Estimated from dataset' }))
+    };
+    render(); return;
+  }
+
+  // ── AI: single combined call for both ────────────────────────
+  const mealNames = meals.map(m=>m.name).join(', ');
+  const budgetNote = S.budget !== 'No need' ? ` Budget: ${S.budget}/day (RM).` : '';
+  const prompt = `For these meals: ${mealNames}.${budgetNote}
+Reply ONLY with JSON (no markdown):
+{
+  "grocery": [{"item":"...","amount":"...","cost_rm":N}],
+  "breakdown": [{"meal":"...","cost_rm":N,"notes":"..."}],
+  "total_rm": N
+}`;
+  try {
+    const txt = await callAI(prompt, 1200);
+    const data = JSON.parse(txt.replace(/```json|```/g,'').trim());
+    S.grocery = (data.grocery||[]).map(i=>({...i, estimated_cost_rm: i.cost_rm||0}));
+    S.costs = { total_rm: data.total_rm||0, breakdown: data.breakdown||[] };
+    render();
+  } catch(e) { S.groceryError = e.message; render(); }
+}
+
+function estimateCost(item) {
+  const i = (item||'').toLowerCase();
+  if (i.includes('beef') || i.includes('steak') || i.includes('salmon') || i.includes('prawn')) return 8;
+  if (i.includes('chicken') || i.includes('fish') || i.includes('tuna')) return 5;
+  if (i.includes('tofu') || i.includes('tempe') || i.includes('egg')) return 2;
+  if (i.includes('milk') || i.includes('cheese') || i.includes('yogurt')) return 4;
+  if (i.includes('rice') || i.includes('noodle') || i.includes('pasta') || i.includes('oat')) return 2;
+  if (i.includes('avocado') || i.includes('quinoa') || i.includes('nut') || i.includes('almond')) return 5;
+  if (i.includes('vegetable') || i.includes('broccoli') || i.includes('spinach') || i.includes('carrot')) return 2;
+  if (i.includes('fruit') || i.includes('banana') || i.includes('berry') || i.includes('apple')) return 3;
+  return 2;
+}
+
+function sGrocery() {
+  if (S.groceryError) return mkCard(`
+    <div class="card-title">Error</div>
+    <div class="warn-box"><strong>Failed to generate</strong><p style="word-break:break-all">${S.groceryError}</p></div>
+    <div class="btn-row"><button class="btn" onclick="generateGrocery()">↺ Retry</button><button class="btn btn-g" onclick="go('post')">← Back</button></div>
+  `);
+  if (!S.grocery) return mkCard(`
+    <div class="card-title">Building grocery & costs…</div>
+    <div class="card-sub">Calculating ingredients and prices.</div>
+    <div class="loading"><div class="spinner"></div><p>Putting your list together…</p></div>
+  `);
+
+  const groceryTotal = S.grocery.reduce((a,i)=>a+(i.estimated_cost_rm||0),0).toFixed(2);
+  const costTotal = S.costs ? (S.costs.total_rm||0).toFixed(2) : groceryTotal;
+
+  return mkCard(`
+    <div class="card-title">Grocery &amp; Cost Breakdown</div>
+    <div class="card-sub">Estimated total spend: <b style="color:var(--amb)">RM ${costTotal}</b>${S.budget!=='No need'?` &nbsp;·&nbsp; Budget: ${S.budget}/day`:''}</div>
+
+    <div class="section-hd">🛒 Shopping List</div>
+    <ul class="grocery-list">
+      ${S.grocery.map(i=>`<li>
+        <span class="gitem">${i.item} <span style="color:var(--tx3);font-size:12px">(${i.amount})</span></span>
+        <span class="gprice">RM ${(i.estimated_cost_rm||0).toFixed(2)}</span>
+      </li>`).join('')}
+    </ul>
+    <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--tx2);padding:0.4rem 0;border-top:1px solid var(--b1);margin-bottom:1.25rem">
+      <span>Ingredients subtotal</span>
+      <span style="color:var(--tx);font-family:'DM Mono',monospace">RM ${groceryTotal}</span>
+    </div>
+
+    ${S.costs && S.costs.breakdown && S.costs.breakdown.length ? `
+    <div class="section-hd">💵 Per-Meal Cost</div>
+    ${S.costs.breakdown.map(b=>`
+      <div class="cal-row">
+        <span class="food">${b.meal}<br><span style="font-size:11px;color:var(--tx3)">${b.notes||''}</span></span>
+        <span class="kcal">RM ${(b.cost_rm||0).toFixed(2)}</span>
+      </div>`).join('')}
+    <hr class="divider">
+    <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:500;margin-bottom:0.5rem">
+      <span>Total</span>
+      <span style="color:var(--amb);font-family:'DM Mono',monospace">RM ${costTotal}</span>
+    </div>` : ''}
+
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="go('post')">← Back</button>
+      <button class="btn btn-g" onclick="go('plan')">View Plan</button>
+      <button class="btn btn-g" onclick="go('menu')">Main Menu</button>
+    </div>
+  `);
+}
+
+function sPlan() {
+  if (S.planError) return mkCard(`
+    <div class="card-title">Something went wrong</div>
+    <div class="warn-box"><strong>Error</strong><p style="word-break:break-all">${S.planError}</p></div>
+    <div class="info-box"><strong>Tip</strong><p>Click the ⚙ button top-right to check your API key, then try again.</p></div>
+    <div class="btn-row">
+      <button class="btn" onclick="generatePlan()">↺ Retry</button>
+      <button class="btn btn-g" onclick="go('summary')">← Back</button>
+    </div>
+  `);
+  if (!S.mealPlan) return mkCard(`
+    <div class="card-title">Generating your meal plan…</div>
+    <div class="card-sub">Crafting meals based on your profile.</div>
+    <div class="loading"><div class="spinner"></div><p>Calculating macros and building your plan…</p></div>
+  `);
+
+  const allMeals = S.weekly ? S.mealPlan.flatMap(d=>d.meals) : S.mealPlan;
+
+  // Build combined grocery map from all meals
+  const groceryMap = {};
+  for (const m of allMeals) {
+    for (const ing of (m.ingredients||[])) {
+      const key = ing.item.toLowerCase();
+      if (!groceryMap[key]) groceryMap[key] = { item: ing.item, amount: ing.amount, cost: estimateCost(ing.item) };
+    }
+  }
+  const groceryItems = Object.values(groceryMap);
+  const groceryTotal = groceryItems.reduce((a,i)=>a+i.cost,0).toFixed(2);
+  const mealTotal = allMeals.reduce((a,m)=>a+(m.budget_rm||estimateCost(m.name)),0).toFixed(2);
+
+  function renderMeal(m, idx) {
+    const mealCost = (m.budget_rm || estimateCost(m.name)).toFixed(2);
+    const hasDetail = m.ingredients && m.ingredients.length > 0;
+    const detailId = `meal-detail-${idx}`;
+    const ingList = hasDetail
+      ? m.ingredients.map(i=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid var(--b1)">
+          <span style="color:var(--tx2)">${i.item} <span style="color:var(--tx3)">(${i.amount})</span></span>
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--amb)">RM ${estimateCost(i.item).toFixed(2)}</span>
+        </div>`).join('')
+      : '<div style="font-size:12px;color:var(--tx3);padding:4px 0">No ingredient data available</div>';
+
+    return `<div class="meal-card" style="cursor:pointer" onclick="toggleMeal('${detailId}',this)">
+      <div class="meal-head">
+        <span class="badge">${m.meal}</span>
+        <span class="meal-kcal">${m.calories} kcal</span>
+        <span style="margin-left:6px;font-size:11px;color:var(--amb);font-family:'DM Mono',monospace">RM ${mealCost}</span>
+        <span id="${detailId}-arrow" style="margin-left:auto;color:var(--tx3);font-size:12px;transition:transform 0.2s">▼</span>
+      </div>
+      <div class="meal-name">${m.name}</div>
+      <div class="meal-desc">${m.description}</div>
+      <div class="meal-macros"><span class="mp">P ${m.protein_g}g</span><span class="mc">C ${m.carbs_g}g</span><span class="mf">F ${m.fat_g}g</span></div>
+      <div id="${detailId}" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--b1)">
+        <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">🛒 Ingredients & cost</div>
+        ${ingList}
+        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:500;padding-top:6px;margin-top:2px">
+          <span style="color:var(--tx2)">Meal subtotal</span>
+          <span style="font-family:'DM Mono',monospace;color:var(--amb)">RM ${mealCost}</span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  const renderDay = (meals, dayLabel, startIdx) =>
+    (dayLabel ? `<div class="section-hd">${dayLabel}</div>` : '') +
+    meals.map((m, i) => renderMeal(m, startIdx + i)).join('');
+
+  let planHTML, mealIdx = 0;
+  if (S.weekly) {
+    planHTML = S.mealPlan.map(d => {
+      const html = renderDay(d.meals, d.day, mealIdx);
+      mealIdx += d.meals.length;
+      return html;
+    }).join('');
+  } else {
+    planHTML = renderDay(S.mealPlan, null, 0);
+  }
+
+  const summaryHTML = groceryItems.length > 0 ? `
+    <hr class="divider">
+    <div class="section-hd">🛒 Combined Grocery List</div>
+    <ul class="grocery-list">
+      ${groceryItems.map(i=>`<li>
+        <span class="gitem">${i.item} <span style="color:var(--tx3);font-size:11px">(${i.amount})</span></span>
+        <span class="gprice">RM ${i.cost.toFixed(2)}</span>
+      </li>`).join('')}
+    </ul>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:0.5rem 0;border-top:1px solid var(--b1)">
+      <span style="color:var(--tx2)">Ingredients total</span>
+      <span style="font-family:'DM Mono',monospace;color:var(--tx)">RM ${groceryTotal}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:500;padding:0.4rem 0 0.1rem">
+      <span>Meals total</span>
+      <span style="font-family:'DM Mono',monospace;color:var(--amb)">RM ${mealTotal}</span>
+    </div>
+  ` : '';
+
+  const card = mkCard(`
+    <div class="card-title">Your ${S.weekly?'Weekly':'Daily'} Meal Plan</div>
+    <div class="card-sub" style="margin-bottom:0.75rem">
+      <span class="tag tag-pur">${S.goal} · ${S.adjTDEE} kcal</span>
+      <span class="tag tag-grn">${S.diets.join(' · ')}</span>
+      <span class="tag tag-amb">${S.lifestyle}</span>
+      ${S.budget!=='No need'?`<span class="tag tag-cyn">Budget ${S.budget}</span>`:''}
+      <span class="tag" style="background:${S.planSource==='dataset'?'rgba(62,207,142,0.15)':'rgba(124,108,245,0.15)'};color:${S.planSource==='dataset'?'#a0ffd4':'#c4bcff'}">${S.planSource==='dataset'?'⚡ Local dataset':'✦ AI generated'}</span>
+    </div>
+    <div style="font-size:12px;color:var(--tx3);margin-bottom:0.75rem">Tap a meal to see ingredients &amp; cost</div>
+    ${planHTML}
+    ${summaryHTML}
+    <div class="btn-row" style="margin-top:1.25rem">
+      <button class="btn" onclick="go('post')">More Options →</button>
+      <button class="btn btn-g" onclick="generatePlan()">↺ Regenerate</button>
+      <button class="btn btn-g" onclick="go('menu')">← Menu</button>
+    </div>
+  `);
+
+  // Attach toggle function after card is in DOM
+  card._toggleReady = true;
+  return card;
+}
+
+function sPost() {
+  return mkCard(`
+    <div class="card-title">More options</div>
+    <div class="card-sub">Additional actions for your meal plan.</div>
+    <div class="grid2">
+      <button class="cbtn" onclick="generatePlan()"><div class="ico">↺</div><div class="lbl">Alt Plan</div><div class="sub">Regenerate meals</div></button>
+      <button class="cbtn" onclick="go('plan')"><div class="ico">📋</div><div class="lbl">Back to Plan</div><div class="sub">View meals &amp; costs</div></button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="go('plan')">← Back to Plan</button>
+      <button class="btn btn-g" onclick="go('menu')">Main Menu</button>
+    </div>
+  `);
+}
+
+function sTips() {
+  const tips=[
+    {n:'01',t:'Start your day with 500 ml of water before breakfast to kickstart metabolism and improve hydration levels.'},
+    {n:'02',t:'Sleep 7–9 hours per night — poor sleep elevates ghrelin (hunger hormone) and suppresses leptin (fullness hormone).'},
+    {n:'03',t:'Eat to 80% fullness (hara hachi bu). Satiety signals take ~20 minutes to reach your brain after eating.'},
+    {n:'04',t:'Include a protein source at every meal. Protein has the highest thermic effect of food (20–30% of calories burned digesting it).'},
+    {n:'05',t:'Prioritize whole foods over processed options. Fiber slows digestion, stabilizes blood sugar and supports gut health.'},
+    {n:'06',t:'Walk 7,000–10,000 steps daily. Non-exercise activity (NEAT) accounts for 15–30% of daily energy expenditure.'},
+    {n:'07',t:`Your personalized water target: <b style="color:var(--cyn)">${(S.weight*0.03).toFixed(2)} L/day</b> based on ${S.weight} kg × 0.03.`},
+    {n:'08',t:'Limit added sugars to under 25 g/day (WHO guideline). Check nutrition labels — sugar hides in many packaged foods.'},
+    {n:'09',t:'Strength train 2–3× per week. Muscle mass boosts resting metabolic rate and improves insulin sensitivity.'},
+    {n:'10',t:'Meal prep on weekends. People who prepare food in advance make 40% better dietary choices during the week.'},
+  ];
+  return mkCard(`
+    <div class="card-title">Healthy tips</div>
+    <div class="card-sub">Evidence-based advice, personalized to your profile.</div>
+    ${tips.map(t=>`<div class="tip-card"><div class="tip-num">TIP ${t.n}</div><p>${t.t}</p></div>`).join('')}
+    <div class="btn-row" style="margin-top:0.5rem"><button class="btn btn-g" onclick="go('menu')">← Back to Menu</button></div>
+  `);
+}
+
+function sCalInfo() {
+  const data=[
+    {cat:'Proteins',items:[['Chicken breast (100g)','165 kcal'],['Eggs (1 large)','78 kcal'],['Tuna (100g)','132 kcal'],['Tofu (100g)','76 kcal'],['Greek yogurt (100g)','59 kcal']]},
+    {cat:'Carbohydrates',items:[['White rice (100g cooked)','130 kcal'],['Whole wheat bread (1 slice)','80 kcal'],['Oats (100g dry)','389 kcal'],['Sweet potato (100g)','86 kcal'],['Banana (medium)','89 kcal']]},
+    {cat:'Fats',items:[['Avocado (100g)','160 kcal'],['Olive oil (1 tbsp)','119 kcal'],['Peanut butter (2 tbsp)','188 kcal'],['Almonds (30g)','173 kcal'],['Cheddar cheese (30g)','120 kcal']]},
+    {cat:'Beverages',items:[['Whole milk (250 ml)','149 kcal'],['Orange juice (250 ml)','112 kcal'],['Black coffee','2 kcal'],['Coconut water (250 ml)','46 kcal'],['Soft drink (330 ml)','139 kcal']]},
+  ];
+  return mkCard(`
+    <div class="card-title">Calorie reference</div>
+    <div class="card-sub">Common food values — your BMR is <b style="color:var(--cyn)">${S.bmr} kcal/day</b>.</div>
+    ${data.map(cat=>`<div class="section-hd">${cat.cat}</div>${cat.items.map(([food,kcal])=>`<div class="cal-row"><span class="food">${food}</span><span class="kcal">${kcal}</span></div>`).join('')}`).join('')}
+    <div class="btn-row" style="margin-top:0.5rem"><button class="btn btn-g" onclick="go('menu')">← Back to Menu</button></div>
+  `);
+}
+
+function sDone() {
+  return mkCard(`
+    <div style="text-align:center;padding:2rem 0">
+      <div style="font-size:48px;margin-bottom:1rem">👋</div>
+      <div class="card-title" style="text-align:center">See you next time!</div>
+      <div class="card-sub" style="text-align:center">Your health journey continues whenever you're ready.</div>
+      <div class="btn-row" style="justify-content:center;margin-top:1.5rem">
+        <button class="btn" onclick="resetApp()">Start Over</button>
+      </div>
+    </div>
+  `);
+}
+
+async function testApiKey() {
+  const k = document.getElementById('modal-key').value.trim();
+  if (!k) { document.getElementById('modal-err').textContent = 'Enter a key first.'; return; }
+  const btn = document.getElementById('test-btn');
+  const errEl = document.getElementById('modal-err');
+  btn.textContent = 'Testing…'; btn.disabled = true;
+  errEl.style.color = 'var(--tx2)'; errEl.textContent = 'Discovering models…';
+  const savedKey = S.apiKey;
+  const savedModel = S._geminiModel;
+  S.apiKey = k; S._geminiModel = null; // reset cache so ListModels runs fresh
+  try {
+    await callAI('Reply with the single word: OK', 10);
+    const modelNote = S._geminiModel ? ` · using ${S._geminiModel}` : '';
+    errEl.style.color = 'var(--grn)';
+    errEl.textContent = `✓ Connection successful!${modelNote}`;
+  } catch(e) {
+    S.apiKey = savedKey; S._geminiModel = savedModel;
+    errEl.style.color = 'var(--red)';
+    errEl.textContent = '✗ ' + e.message;
+  }
+  btn.textContent = 'Test'; btn.disabled = false;
+}
+
+function resetApp() {
+  Object.assign(S,{step:'start',path:null,weight:'',height:'',age:'',gender:'',goal:'',numMeals:0,diets:[],allergies:[],weekly:false,budget:'No need',lifestyle:'',bmr:0,tdee:0,bmi:0,adjTDEE:0,macros:{p:0,c:0,f:0,pPct:0,cPct:0,fPct:0},mealPlan:null,grocery:null,costs:null,error:null,planError:null,groceryError:null,costError:null,planSource:null});
+  render();
+}
+
+function openApiModal() {
+  document.getElementById('modal-key').value = S.apiKey;
+  document.getElementById('modal-ds').value = S.datasetUrl || '';
+  document.getElementById('modal-err').textContent = '';
+  document.getElementById('ds-status').textContent = '';
+  updateModalProvider();
+  document.getElementById('api-modal').style.display = 'flex';
+}
+function closeApiModal() { document.getElementById('api-modal').style.display = 'none'; }
+function saveApiKey() {
+  const k = document.getElementById('modal-key').value.trim();
+  if (k && !k.startsWith('sk-') && !k.startsWith('AIza')) {
+    document.getElementById('modal-err').textContent = 'Unrecognized key format. Expected sk-ant-... (Anthropic) or AIzaSy... (Google).';
+    return;
+  }
+  S.apiKey = k; updateApiBtn(); updateModalProvider(); closeApiModal();
+}
+function clearApiKey() { S.apiKey = ''; S._geminiModel = null; document.getElementById('modal-key').value = ''; updateApiBtn(); updateModalProvider(); }
+function updateApiBtn() {
+  const dot = document.getElementById('api-dot');
+  const lbl = document.getElementById('api-btn-label');
+  if (!dot || !lbl) return;
+  if (!S.apiKey) { dot.style.display='none'; lbl.textContent='API KEY'; return; }
+  dot.style.display = 'block';
+  lbl.textContent = S.apiKey.startsWith('AIza') ? 'GEMINI' : 'CLAUDE';
+  dot.style.background = S.apiKey.startsWith('AIza') ? '#4285f4' : 'var(--grn)';
+}
+function updateModalProvider() {
+  const el = document.getElementById('modal-provider');
+  if (!el) return;
+  const k = document.getElementById('modal-key') ? document.getElementById('modal-key').value.trim() : S.apiKey;
+  if (!k) { el.textContent = ''; return; }
+  if (k.startsWith('AIza')) { el.textContent = '✓ Google Gemini detected'; el.style.color = '#4285f4'; }
+  else if (k.startsWith('sk-')) { el.textContent = '✓ Anthropic Claude detected'; el.style.color = 'var(--grn)'; }
+  else { el.textContent = 'Unrecognized format'; el.style.color = 'var(--red)'; }
+}
+function saveDatasetUrl() {
+  const url = document.getElementById('modal-ds').value.trim();
+  S.datasetUrl = url; DB = null; // clear cache so it reloads
+  const el = document.getElementById('ds-status');
+  el.style.color = 'var(--grn)'; el.textContent = url ? '✓ URL saved — will load on next plan generation.' : '✓ Cleared — will use local file.';
+}
+async function testDataset() {
+  const url = document.getElementById('modal-ds').value.trim() || './nutriflow-data.json';
+  const btn = document.getElementById('ds-test-btn');
+  const el = document.getElementById('ds-status');
+  btn.textContent = 'Testing…'; btn.disabled = true;
+  el.style.color = 'var(--tx2)'; el.textContent = 'Loading…';
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    const count = d.dishes?.length || 0;
+    if (!count) throw new Error('No dishes found in dataset');
+    el.style.color = 'var(--grn)'; el.textContent = `✓ Dataset loaded — ${count} dishes available.`;
+    if (url !== './nutriflow-data.json') { S.datasetUrl = url; DB = d.dishes; }
+    else { DB = d.dishes; }
+  } catch(e) {
+    el.style.color = 'var(--red)'; el.textContent = '✗ ' + e.message;
+  }
+  btn.textContent = 'Test Dataset'; btn.disabled = false;
+}
+
+function toggleMeal(id, card) {
+  const detail = document.getElementById(id);
+  const arrow = document.getElementById(id + '-arrow');
+  if (!detail) return;
+  const open = detail.style.display === 'block';
+  detail.style.display = open ? 'none' : 'block';
+  if (arrow) arrow.style.transform = open ? '' : 'rotate(180deg)';
+  if (!open) card.style.background = 'var(--s3)';
+  else card.style.background = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeApiModal(); });
+render();
+</script>
+</body>
+</html>
