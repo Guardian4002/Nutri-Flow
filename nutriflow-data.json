@@ -1,6 +1,9 @@
 {
   "version": "1.1",
   "description": "NutriFlow food dataset — Malaysian, Pakistani, Indian, French, Chinese, Afghan & Western dishes (94 total)",
+  "author": "Guardian4002",
+  "copyright": "© 2025 Guardian4002. All rights reserved.",
+  "license": "All Rights Reserved. No part of this dataset may be reproduced, distributed, or used commercially without explicit written permission from the author.",
   "dishes": [
 
     {"id":"b001","name":"Nasi Lemak","description":"Fragrant coconut rice with sambal, boiled egg, cucumber, and crispy anchovies. A classic Malaysian breakfast.","meal_types":["Breakfast","Lunch"],"diet_tags":["Halal","No Preferences"],"allergens":["Eggs","Fish"],"calories":550,"protein_g":18,"carbs_g":72,"fat_g":22,"goal_fit":["Maintain","Gain"],"budget_rm":5,"cuisine":"Malaysian","ingredients":[{"item":"Coconut rice","amount":"1 cup (cooked)"},{"item":"Sambal paste","amount":"2 tbsp"},{"item":"Boiled egg","amount":"1 whole"},{"item":"Anchovies (ikan bilis)","amount":"30g"},{"item":"Cucumber","amount":"3 slices"},{"item":"Roasted peanuts","amount":"20g"}]},
