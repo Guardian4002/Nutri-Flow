@@ -129,6 +129,18 @@ header p { margin-top: 0.5rem; font-size: 14px; color: var(--tx2); font-weight: 
 .tag-cyn { background: rgba(54,197,240,0.15); color: #9de8ff; }
 .section-hd { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--tx3); text-transform: uppercase; letter-spacing: 0.1em; margin: 1.4rem 0 0.75rem; }
 .err-box { background: rgba(245,86,74,0.1); border: 1px solid rgba(245,86,74,0.3); border-radius: var(--r2); padding: 0.85rem 1.1rem; font-size: 13px; color: #ff9f99; margin-bottom: 1rem; }
+.cuisine-tag { display: inline-block; font-size: 10px; font-family: 'DM Mono', monospace; padding: 2px 7px; border-radius: 100px; margin-left: 6px; background: rgba(255,255,255,0.06); color: var(--tx3); letter-spacing: 0.05em; }
+.ds-status-bar { display: flex; align-items: center; gap: 8px; background: var(--s2); border: 1px solid var(--b1); border-radius: var(--r2); padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 12px; }
+.ds-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+@media print {
+  body::before, #api-btn, .progress-wrap, .btn-row, footer { display: none !important; }
+  body { background: #fff !important; color: #000 !important; padding: 0 !important; }
+  .card { border: none !important; padding: 0 !important; background: none !important; max-width: 100% !important; }
+  .meal-card { background: #f5f5f5 !important; border: 1px solid #ddd !important; break-inside: avoid; margin-bottom: 8px !important; }
+  .badge { background: #eee !important; color: #333 !important; }
+  .section-hd { color: #666 !important; }
+  [id*="-detail"] { display: block !important; }
+}
 .water-display { display: flex; align-items: center; gap: 14px; background: rgba(54,197,240,0.08); border: 1px solid rgba(54,197,240,0.2); border-radius: var(--r2); padding: 1rem 1.25rem; margin: 1rem 0; }
 .water-icon { font-size: 28px; }
 .water-text .wv { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--cyn); }
@@ -200,14 +212,28 @@ const S = {
   step:'start', path:null,
   apiKey: '', datasetUrl: '',
   weight:'', height:'', age:'', gender:'',
-  goal:'', numMeals:0, diets:[], allergies:[],
-  weekly:false, budget:'No need', lifestyle:'',
+  goal:'', numMeals:0, diets:[], allergies:[], cuisines:[],
+  weekly:false, budget:'No need', lifestyle:'', priceMode:'hawker',
   bmr:0, tdee:0, bmi:0, adjTDEE:0,
   macros:{p:0,c:0,f:0,pPct:0,cPct:0,fPct:0},
   mealPlan:null, grocery:null, costs:null, error:null,
   planError:null, groceryError:null, costError:null,
-  planSource: null // 'dataset' | 'ai'
+  planSource: null, _geminiModel: null, _dsStatus: null
 };
+
+// Restore saved stats from localStorage
+try {
+  const saved = JSON.parse(localStorage.getItem('nf_user') || '{}');
+  if (saved.weight) S.weight = saved.weight;
+  if (saved.height) S.height = saved.height;
+  if (saved.age)    S.age    = saved.age;
+  if (saved.gender) S.gender = saved.gender;
+  if (saved.apiKey) { S.apiKey = saved.apiKey; }
+} catch(e) {}
+
+function saveToStorage() {
+  try { localStorage.setItem('nf_user', JSON.stringify({weight:S.weight,height:S.height,age:S.age,gender:S.gender,apiKey:S.apiKey})); } catch(e) {}
+}
 
 // ── DATASET ENGINE ─────────────────────────────────────────────────────────
 let DB = null; // loaded dishes array
@@ -248,7 +274,7 @@ async function loadDataset() {
 
 const MEAL_ORDER = ['Breakfast','Morning Snack','Lunch','Afternoon Snack','Dinner','Evening Snack'];
 
-function pickMealsFromDataset(dishes, numMeals, goal, diets, allergies, budgetStr, perMeal) {
+function pickMealsFromDataset(dishes, numMeals, goal, diets, allergies, budgetStr, perMeal, cuisines) {
   const budgetMax = budgetStr === 'No need' ? 999 : parseInt(budgetStr);
   const allergySet = new Set(allergies);
   const perMealBudget = budgetMax === 999 ? 999 : Math.floor(budgetMax / numMeals) + 3;
@@ -268,6 +294,11 @@ function pickMealsFromDataset(dishes, numMeals, goal, diets, allergies, budgetSt
 
   // A dish passes diet filter if it matches ALL selected non-allergy diets
   const activeDiets = diets.filter(d => d !== 'Allergy Constraint' && d !== 'No Preferences');
+
+  function cuisineOk(dish) {
+    if (!cuisines || cuisines.length === 0) return true;
+    return cuisines.includes(dish.cuisine);
+  }
 
   function dietOk(dish) {
     if (activeDiets.length === 0) return true;
@@ -311,17 +342,21 @@ function pickMealsFromDataset(dishes, numMeals, goal, diets, allergies, budgetSt
     // Filter pool for this slot
     let pool = dishes.filter(d =>
       d.meal_types.includes(slot) &&
-      dietOk(d) && allergyOk(d) && budgetOk(d) && goalOk(d) && !usedIds.has(d.id)
+      dietOk(d) && allergyOk(d) && budgetOk(d) && goalOk(d) && cuisineOk(d) && !usedIds.has(d.id)
     );
 
     // Relax calorie constraint if needed
     let calPool = pool.filter(d => calOk(d, target));
     if (calPool.length === 0) calPool = pool; // fall back to any calorie
     if (calPool.length === 0) {
-      // Widen: try any meal_type that overlaps
+      // Widen: try any meal_type that overlaps, respect cuisine if set
       calPool = dishes.filter(d =>
-        dietOk(d) && allergyOk(d) && !usedIds.has(d.id)
+        dietOk(d) && allergyOk(d) && cuisineOk(d) && !usedIds.has(d.id)
       );
+      // If still empty, drop cuisine filter entirely
+      if (calPool.length === 0) {
+        calPool = dishes.filter(d => dietOk(d) && allergyOk(d) && !usedIds.has(d.id));
+      }
     }
 
     if (calPool.length === 0) return null; // can't build plan from dataset
@@ -340,7 +375,7 @@ const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun
 // ── END DATASET ENGINE ──────────────────────────────────────────────────────
 
 
-const FLOW_MEAL = ['start','menu','goal','meals','diet','allergy','weekly','budget','lifestyle','summary','plan','post'];
+const FLOW_MEAL = ['start','menu','goal','meals','diet','allergy','cuisine','weekly','budget','pricemode','lifestyle','summary','plan','post'];
 const FLOW_BMI  = ['start','menu','bmi'];
 const FLOW_TIPS = ['start','menu','tips'];
 const FLOW_CAL  = ['start','menu','calinfo'];
@@ -367,7 +402,7 @@ function render() {
 }
 
 function buildScreen() {
-  const map = {start:sStart,menu:sMenu,bmi:sBMI,goal:sGoal,meals:sMeals,diet:sDiet,allergy:sAllergy,weekly:sWeekly,budget:sBudget,lifestyle:sLifestyle,summary:sSummary,plan:sPlan,post:sPost,tips:sTips,calinfo:sCalInfo,done:sDone};
+  const map = {start:sStart,menu:sMenu,bmi:sBMI,goal:sGoal,meals:sMeals,diet:sDiet,allergy:sAllergy,cuisine:sCuisine,weekly:sWeekly,budget:sBudget,pricemode:sPriceMode,lifestyle:sLifestyle,summary:sSummary,plan:sPlan,post:sPost,tips:sTips,calinfo:sCalInfo,done:sDone};
   return (map[S.step]||sStart)();
 }
 
@@ -391,34 +426,59 @@ function bmiInfo(bmi) {
 }
 function go(step) { S.step=step; render(); }
 
+const PRICE_MODES = {
+  'home':      { label:'Home-cooked',  mult:0.35, color:'var(--grn)',  desc:'Ingredients cost only' },
+  'hawker':    { label:'Hawker / Mamak', mult:1.0, color:'var(--cyn)', desc:'Street food baseline' },
+  'restaurant':{ label:'Casual Restaurant', mult:1.6, color:'var(--amb)', desc:'Sit-down dining' },
+  'premium':   { label:'Premium / Hotel', mult:2.5, color:'var(--acc)', desc:'Fine dining' },
+};
+
+function applyPrice(base) {
+  const mult = PRICE_MODES[S.priceMode]?.mult || 1.0;
+  return +(base * mult).toFixed(2);
+}
+
 function sStart() {
+  const returning = S.weight && S.height && S.age && S.gender;
   return mkCard(`
     <div class="card-title">Your body stats</div>
-    <div class="card-sub">Used to calculate your BMI, BMR and personalized targets.</div>
+    <div class="card-sub">${returning ? '👋 Welcome back! Your saved stats are pre-filled.' : 'Used to calculate your BMI, BMR and personalized targets.'}</div>
     <label class="inp-label">Weight (kg)</label>
     <input class="inp" id="iw" type="number" min="20" max="300" placeholder="e.g. 70" value="${S.weight}">
     <label class="inp-label">Height (cm)</label>
     <input class="inp" id="ih" type="number" min="100" max="250" placeholder="e.g. 175" value="${S.height}">
     <label class="inp-label">Age</label>
-    <input class="inp" id="ia" type="number" min="10" max="110" placeholder="e.g. 28" value="${S.age}">
+    <input class="inp" id="ia" type="number" min="5" max="110" placeholder="e.g. 28" value="${S.age}">
     <label class="inp-label" style="margin-bottom:0.4rem">Gender</label>
     <div class="grid2">
-      <button class="cbtn ${S.gender==='Male'?'sel':''}" onclick="sg('Male',this)"><div class="lbl">Male</div></button>
-      <button class="cbtn ${S.gender==='Female'?'sel':''}" onclick="sg('Female',this)"><div class="lbl">Female</div></button>
+      <button class="cbtn gender-btn ${S.gender==='Male'?'sel':''}" onclick="sg('Male',this)"><div class="lbl">Male</div></button>
+      <button class="cbtn gender-btn ${S.gender==='Female'?'sel':''}" onclick="sg('Female',this)"><div class="lbl">Female</div></button>
     </div>
     <div id="serr"></div>
     <div class="btn-row" style="margin-top:0.25rem"><button class="btn" onclick="submitStart()">Continue →</button></div>
   `);
 }
-function sg(g,el) { document.querySelectorAll('#app .cbtn').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); S.gender=g; }
+function sg(g,el) {
+  document.querySelectorAll('#app .gender-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel'); S.gender=g;
+}
 function submitStart() {
-  const w=parseFloat(document.getElementById('iw').value),h=parseFloat(document.getElementById('ih').value),a=parseInt(document.getElementById('ia').value);
-  if(!w||!h||!a||!S.gender){document.getElementById('serr').innerHTML='<div class="err-box">Please complete all fields.</div>';return;}
-  S.weight=w; S.height=h; S.age=a; S.bmi=calcBMI(w,h); S.bmr=calcBMR(w,h,a,S.gender); go('menu');
+  const w=parseFloat(document.getElementById('iw').value);
+  const h=parseFloat(document.getElementById('ih').value);
+  const a=parseInt(document.getElementById('ia').value);
+  const err = document.getElementById('serr');
+  if (!w||!h||!a||!S.gender) { err.innerHTML='<div class="err-box">Please complete all fields.</div>'; return; }
+  if (w<20||w>300) { err.innerHTML='<div class="err-box">Weight must be between 20–300 kg.</div>'; return; }
+  if (h<100||h>250) { err.innerHTML='<div class="err-box">Height must be between 100–250 cm.</div>'; return; }
+  if (a<5||a>110) { err.innerHTML='<div class="err-box">Age must be between 5–110.</div>'; return; }
+  S.weight=w; S.height=h; S.age=a;
+  S.bmi=calcBMI(w,h); S.bmr=calcBMR(w,h,a,S.gender);
+  saveToStorage();
+  go('menu');
 }
 
 function sMenu() {
-  const items=[{v:'bmi',ico:'⚖️',lbl:'BMI Calculator',sub:'Check body mass index'},{v:'meal',ico:'🥗',lbl:'Daily Meal Planner',sub:'AI-generated plan'},{v:'tips',ico:'💡',lbl:'Healthy Tips',sub:'Evidence-based advice'},{v:'cal',ico:'🔥',lbl:'Calorie Info',sub:'Food calorie reference'},{v:'exit',ico:'👋',lbl:'Exit',sub:'Maybe later'}];
+  const items=[{v:'bmi',ico:'⚖️',lbl:'BMI Calculator',sub:'Check body mass index'},{v:'meal',ico:'🥗',lbl:'Meal Planner',sub:'Dataset or AI-generated'},{v:'tips',ico:'💡',lbl:'Healthy Tips',sub:'Evidence-based advice'},{v:'cal',ico:'🔥',lbl:'Calorie Info',sub:'Food calorie reference'},{v:'exit',ico:'👋',lbl:'Exit',sub:'Maybe later'}];
   return mkCard(`
     <div class="card-title">Main menu</div>
     <div class="card-sub">BMR: <b style="color:var(--cyn)">${S.bmr} kcal/day</b> &nbsp;·&nbsp; What would you like to do?</div>
@@ -511,7 +571,7 @@ function toggleDiet(v, el) {
 }
 function submitDiet() {
   if (S.diets.length === 0) { document.getElementById('derr').innerHTML='<div class="err-box">Please select at least one preference.</div>'; return; }
-  go(S.diets.includes('Allergy Constraint') ? 'allergy' : 'weekly');
+  go(S.diets.includes('Allergy Constraint') ? 'allergy' : 'cuisine');
 }
 
 function sAllergy() {
@@ -523,12 +583,67 @@ function sAllergy() {
       ${items.map(a=>`<label class="chk ${S.allergies.includes(a)?'on':''}" onclick="toggleAllergy('${a}',this)"><div class="chkdot"></div><span>${a}</span></label>`).join('')}
     </div>
     <div class="btn-row">
-      <button class="btn" onclick="go('weekly')">Continue →</button>
+      <button class="btn" onclick="go('cuisine')">Continue →</button>
       <button class="btn btn-g" onclick="go('diet')">← Back</button>
     </div>
   `);
 }
 function toggleAllergy(n,el) { el.classList.toggle('on'); S.allergies=S.allergies.includes(n)?S.allergies.filter(a=>a!==n):[...S.allergies,n]; }
+
+function sCuisine() {
+  const opts=[
+    {v:'Malaysian',ico:'🇲🇾',d:'Local favourites'},
+    {v:'Pakistani',ico:'🇵🇰',d:'Karahi & biryani'},
+    {v:'Indian',ico:'🇮🇳',d:'Curry & dosa'},
+    {v:'Chinese',ico:'🇨🇳',d:'Stir-fry & dim sum'},
+    {v:'Japanese',ico:'🇯🇵',d:'Ramen & teriyaki'},
+    {v:'Korean',ico:'🇰🇷',d:'BBQ & kimchi'},
+    {v:'Thai',ico:'🇹🇭',d:'Pad Thai & curry'},
+    {v:'Vietnamese',ico:'🇻🇳',d:'Pho & banh mi'},
+    {v:'Indonesian',ico:'🇮🇩',d:'Nasi goreng & sate'},
+    {v:'Filipino',ico:'🇵🇭',d:'Adobo & sinigang'},
+    {v:'French',ico:'🇫🇷',d:'Classic Parisian'},
+    {v:'Italian',ico:'🇮🇹',d:'Pasta & pizza'},
+    {v:'Spanish',ico:'🇪🇸',d:'Paella & tapas'},
+    {v:'Greek',ico:'🇬🇷',d:'Souvlaki & salad'},
+    {v:'Turkish',ico:'🇹🇷',d:'Kebab & mezze'},
+    {v:'Lebanese',ico:'🇱🇧',d:'Shawarma & hummus'},
+    {v:'Moroccan',ico:'🇲🇦',d:'Tagine & couscous'},
+    {v:'Afghan',ico:'🇦🇫',d:'Pulao & mantu'},
+    {v:'Ethiopian',ico:'🇪🇹',d:'Injera & stews'},
+    {v:'Nigerian',ico:'🇳🇬',d:'Jollof & egusi'},
+    {v:'Mexican',ico:'🇲🇽',d:'Tacos & burritos'},
+    {v:'Peruvian',ico:'🇵🇪',d:'Ceviche & lomo'},
+    {v:'Argentinian',ico:'🇦🇷',d:'Asado & empanadas'},
+    {v:'Brazilian',ico:'🇧🇷',d:'Feijoada & acai'},
+    {v:'American',ico:'🇺🇸',d:'Burgers & BBQ'},
+    {v:'Western',ico:'🌍',d:'International mix'},
+  ];
+  const backStep = S.diets.includes('Allergy Constraint') ? 'allergy' : 'diet';
+  return mkCard(`
+    <div class="card-title">Preferred cuisines</div>
+    <div class="card-sub">Select any cuisines you'd like — or leave all unselected for everything.</div>
+    <div class="gridAuto">
+      ${opts.map(o=>`<button class="cbtn ${S.cuisines.includes(o.v)?'sel':''}" onclick="toggleCuisine('${o.v}',this)">
+        <div class="ico">${o.ico}</div>
+        <div class="lbl" style="font-size:11.5px">${o.v}</div>
+        <div class="sub">${o.d}</div>
+      </button>`).join('')}
+    </div>
+    ${S.cuisines.length>0
+      ? `<div style="font-size:12px;color:var(--tx3);margin-bottom:0.5rem">Filtering to: ${S.cuisines.join(', ')}</div>`
+      : `<div style="font-size:12px;color:var(--tx3);margin-bottom:0.5rem">No filter — all 26 cuisines included</div>`
+    }
+    <div class="btn-row">
+      <button class="btn" onclick="go('weekly')">Continue →</button>
+      <button class="btn btn-g" onclick="go('${backStep}')">← Back</button>
+    </div>
+  `);
+}
+function toggleCuisine(v, el) {
+  el.classList.toggle('sel');
+  S.cuisines = S.cuisines.includes(v) ? S.cuisines.filter(c=>c!==v) : [...S.cuisines, v];
+}
 
 function sWeekly() {
   return mkCard(`
@@ -554,7 +669,23 @@ function sBudget() {
     <div class="btn-row"><button class="btn btn-g" onclick="go('weekly')">← Back</button></div>
   `);
 }
-function setBudget(b) { S.budget=b; go('lifestyle'); }
+function setBudget(b) { S.budget=b; go('pricemode'); }
+
+function sPriceMode() {
+  return mkCard(`
+    <div class="card-title">Price source</div>
+    <div class="card-sub">How do you usually get your meals? This adjusts all cost estimates.</div>
+    <div class="grid2">
+      ${Object.entries(PRICE_MODES).map(([k,v])=>`
+        <button class="cbtn ${S.priceMode===k?'sel':''}" onclick="S.priceMode='${k}';go('lifestyle')">
+          <div class="lbl" style="font-size:13px">${v.label}</div>
+          <div class="sub">${v.desc}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:${v.color};margin-top:5px">×${v.mult} baseline</div>
+        </button>`).join('')}
+    </div>
+    <div class="btn-row"><button class="btn btn-g" onclick="go('budget')">← Back</button></div>
+  `);
+}
 
 function sLifestyle() {
   const opts=[{v:'Sedentary',ico:'🪑',d:'×1.2 — desk job'},{v:'Moderate',ico:'🚶',d:'×1.55 — light exercise'},{v:'Active',ico:'🏃',d:'×1.722 — intense daily'}];
@@ -596,8 +727,10 @@ function sSummary() {
     <div class="sum-row"><span>Goal / Lifestyle</span><span>${S.goal} · ${S.lifestyle}</span></div>
     <div class="sum-row"><span>Meals · Duration</span><span>${S.numMeals} meals · ${S.weekly?'Weekly':'Daily'}</span></div>
     <div class="sum-row"><span>Diet</span><span>${S.diets.join(', ')}</span></div>
+    ${S.cuisines.length?`<div class="sum-row"><span>Cuisines</span><span>${S.cuisines.join(', ')}</span></div>`:'<div class="sum-row"><span>Cuisines</span><span style="color:var(--tx3)">All cuisines</span></div>'}
     ${S.allergies.length?`<div class="sum-row"><span>Allergies</span><span>${S.allergies.join(', ')}</span></div>`:''}
     <div class="sum-row"><span>Budget</span><span>${S.budget}</span></div>
+    <div class="sum-row"><span>Price source</span><span style="color:${PRICE_MODES[S.priceMode]?.color||'var(--tx)'}">${PRICE_MODES[S.priceMode]?.label||'Hawker'}</span></div>
     <div class="btn-row" style="margin-top:1.25rem">
       <button class="btn" onclick="generatePlan()">Generate Meal Plan ✦</button>
       <button class="btn btn-g" onclick="go('lifestyle')">← Back</button>
@@ -671,7 +804,9 @@ async function callAI(prompt, maxTokens) {
 }
 
 async function generatePlan() {
-  S.step='plan'; S.mealPlan=null; S.planError=null; S.planSource=null; render();
+  S.step='plan'; S.mealPlan=null; S.planError=null; S.planSource=null;
+  S.grocery=null; S.costs=null; S.groceryError=null; S.costError=null;
+  S._dsStatus = null; render();
   const perMeal = Math.round(S.adjTDEE / S.numMeals);
 
   // ── Try dataset first ──────────────────────────────────────────
@@ -681,16 +816,22 @@ async function generatePlan() {
       if (S.weekly) {
         const days = [];
         for (const day of DAYS) {
-          const meals = pickMealsFromDataset(dishes, S.numMeals, S.goal, S.diets, S.allergies, S.budget, perMeal);
-          if (!meals) { break; } // fall through to AI
+          const meals = pickMealsFromDataset(dishes, S.numMeals, S.goal, S.diets, S.allergies, S.budget, perMeal, S.cuisines);
+          if (!meals) break;
           days.push({ day, meals });
         }
         if (days.length === 7) {
-          S.mealPlan = days; S.planSource = 'dataset'; render(); return;
+          S.mealPlan = days; S.planSource = 'dataset';
+          S._dsStatus = {ok:true, count:dishes.length, src: S.datasetUrl ? 'custom URL' : 'GitHub'};
+          render(); return;
         }
       } else {
-        const meals = pickMealsFromDataset(dishes, S.numMeals, S.goal, S.diets, S.allergies, S.budget, perMeal);
-        if (meals) { S.mealPlan = meals; S.planSource = 'dataset'; render(); return; }
+        const meals = pickMealsFromDataset(dishes, S.numMeals, S.goal, S.diets, S.allergies, S.budget, perMeal, S.cuisines);
+        if (meals) {
+          S.mealPlan = meals; S.planSource = 'dataset';
+          S._dsStatus = {ok:true, count:dishes.length, src: S.datasetUrl ? 'custom URL' : 'GitHub'};
+          render(); return;
+        }
       }
     }
   } catch(e) { console.warn('Dataset error, falling back to AI:', e); }
@@ -846,28 +987,39 @@ function sPlan() {
     }
   }
   const groceryItems = Object.values(groceryMap);
-  const groceryTotal = groceryItems.reduce((a,i)=>a+i.cost,0).toFixed(2);
-  const mealTotal = allMeals.reduce((a,m)=>a+(m.budget_rm||estimateCost(m.name)),0).toFixed(2);
+  const groceryTotal = groceryItems.reduce((a,i)=>a+applyPrice(i.cost),0).toFixed(2);
+  const mealTotal = allMeals.reduce((a,m)=>a+applyPrice(m.budget_rm||estimateCost(m.name)),0).toFixed(2);
+  const pm = PRICE_MODES[S.priceMode] || PRICE_MODES.hawker;
 
   function renderMeal(m, idx) {
-    const mealCost = (m.budget_rm || estimateCost(m.name)).toFixed(2);
+    const basePrice = m.budget_rm || estimateCost(m.name);
+    const mealCost = applyPrice(basePrice).toFixed(2);
     const hasDetail = m.ingredients && m.ingredients.length > 0;
-    const detailId = `meal-detail-${idx}`;
+    const detailId = `md-${idx}-${Date.now()}`;
+    const cuisineLabel = m.cuisine ? `<span class="cuisine-tag">${m.cuisine}</span>` : '';
     const ingList = hasDetail
       ? m.ingredients.map(i=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid var(--b1)">
           <span style="color:var(--tx2)">${i.item} <span style="color:var(--tx3)">(${i.amount})</span></span>
           <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--amb)">RM ${estimateCost(i.item).toFixed(2)}</span>
         </div>`).join('')
-      : '<div style="font-size:12px;color:var(--tx3);padding:4px 0">No ingredient data available</div>';
+      : '<div style="font-size:12px;color:var(--tx3);padding:4px 0">No ingredient data — add API key for details</div>';
 
-    return `<div class="meal-card" style="cursor:pointer" onclick="toggleMeal('${detailId}',this)">
-      <div class="meal-head">
+    return `<div class="meal-card" id="mc-${idx}">
+      <div class="meal-head" style="cursor:pointer" onclick="toggleMeal('${detailId}',document.getElementById('mc-${idx}'))">
         <span class="badge">${m.meal}</span>
         <span class="meal-kcal">${m.calories} kcal</span>
         <span style="margin-left:6px;font-size:11px;color:var(--amb);font-family:'DM Mono',monospace">RM ${mealCost}</span>
         <span id="${detailId}-arrow" style="margin-left:auto;color:var(--tx3);font-size:12px;transition:transform 0.2s">▼</span>
       </div>
-      <div class="meal-name">${m.name}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;gap:8px">
+        <div class="meal-name" style="margin-bottom:0;flex:1">${m.name}${cuisineLabel}</div>
+        <button id="swap-btn-${idx}" onclick="event.stopPropagation();regenerateMeal(${idx})"
+          style="background:var(--s3);border:1px solid var(--b2);border-radius:var(--r3);padding:4px 10px;font-size:11px;color:var(--tx2);cursor:pointer;flex-shrink:0;transition:all 0.15s;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif"
+          onmouseover="this.style.borderColor='var(--acc)';this.style.color='#c4bcff';this.style.background='rgba(124,108,245,0.15)'"
+          onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--tx2)';this.style.background='var(--s3)'">
+          <span id="swap-ico-${idx}">↺</span> <span id="swap-lbl-${idx}">new</span>
+        </button>
+      </div>
       <div class="meal-desc">${m.description}</div>
       <div class="meal-macros"><span class="mp">P ${m.protein_g}g</span><span class="mc">C ${m.carbs_g}g</span><span class="mf">F ${m.fat_g}g</span></div>
       <div id="${detailId}" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--b1)">
@@ -902,7 +1054,7 @@ function sPlan() {
     <ul class="grocery-list">
       ${groceryItems.map(i=>`<li>
         <span class="gitem">${i.item} <span style="color:var(--tx3);font-size:11px">(${i.amount})</span></span>
-        <span class="gprice">RM ${i.cost.toFixed(2)}</span>
+        <span class="gprice">RM ${applyPrice(i.cost).toFixed(2)}</span>
       </li>`).join('')}
     </ul>
     <div style="display:flex;justify-content:space-between;font-size:13px;padding:0.5rem 0;border-top:1px solid var(--b1)">
@@ -913,23 +1065,38 @@ function sPlan() {
       <span>Meals total</span>
       <span style="font-family:'DM Mono',monospace;color:var(--amb)">RM ${mealTotal}</span>
     </div>
+    <div style="font-size:11px;color:var(--tx3);margin-top:4px;font-family:'DM Mono',monospace">
+      Price source: <span style="color:${pm.color}">${pm.label}</span> (×${pm.mult} baseline)
+    </div>
   ` : '';
+
+  const dsBar = S._dsStatus ? `
+    <div class="ds-status-bar">
+      <div class="ds-status-dot" style="background:var(--grn)"></div>
+      <span style="color:var(--tx2)">Dataset: <b style="color:var(--grn)">${S._dsStatus.count} dishes</b> loaded from ${S._dsStatus.src}</span>
+    </div>` : `
+    <div class="ds-status-bar">
+      <div class="ds-status-dot" style="background:var(--acc)"></div>
+      <span style="color:var(--tx2)">Generated by <b style="color:#c4bcff">AI</b></span>
+    </div>`;
 
   const card = mkCard(`
     <div class="card-title">Your ${S.weekly?'Weekly':'Daily'} Meal Plan</div>
-    <div class="card-sub" style="margin-bottom:0.75rem">
+    <div class="card-sub" style="margin-bottom:0.5rem">
       <span class="tag tag-pur">${S.goal} · ${S.adjTDEE} kcal</span>
       <span class="tag tag-grn">${S.diets.join(' · ')}</span>
       <span class="tag tag-amb">${S.lifestyle}</span>
       ${S.budget!=='No need'?`<span class="tag tag-cyn">Budget ${S.budget}</span>`:''}
-      <span class="tag" style="background:${S.planSource==='dataset'?'rgba(62,207,142,0.15)':'rgba(124,108,245,0.15)'};color:${S.planSource==='dataset'?'#a0ffd4':'#c4bcff'}">${S.planSource==='dataset'?'⚡ Local dataset':'✦ AI generated'}</span>
+      ${S.cuisines.length?`<span class="tag" style="background:rgba(245,166,35,0.12);color:#ffd27a">${S.cuisines.join(', ')}</span>`:''}
     </div>
-    <div style="font-size:12px;color:var(--tx3);margin-bottom:0.75rem">Tap a meal to see ingredients &amp; cost</div>
+    ${dsBar}
+    <div style="font-size:12px;color:var(--tx3);margin-bottom:0.75rem">Tap a meal to see ingredients &amp; cost · ↺ swap to replace a single meal</div>
     ${planHTML}
     ${summaryHTML}
     <div class="btn-row" style="margin-top:1.25rem">
       <button class="btn" onclick="go('post')">More Options →</button>
       <button class="btn btn-g" onclick="generatePlan()">↺ Regenerate</button>
+      <button class="btn btn-g" onclick="window.print()" title="Print / Save as PDF">🖨 Print</button>
       <button class="btn btn-g" onclick="go('menu')">← Menu</button>
     </div>
   `);
@@ -1046,9 +1213,20 @@ function saveApiKey() {
     document.getElementById('modal-err').textContent = 'Unrecognized key format. Expected sk-ant-... (Anthropic) or AIzaSy... (Google).';
     return;
   }
-  S.apiKey = k; updateApiBtn(); updateModalProvider(); closeApiModal();
+  S.apiKey = k; saveToStorage(); updateApiBtn(); updateModalProvider(); closeApiModal();
 }
-function clearApiKey() { S.apiKey = ''; S._geminiModel = null; document.getElementById('modal-key').value = ''; updateApiBtn(); updateModalProvider(); }
+
+function clearApiKey() {
+  S.apiKey = ''; S._geminiModel = null;
+  document.getElementById('modal-key').value = '';
+  saveToStorage(); updateApiBtn(); updateModalProvider();
+}
+
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeApiModal(); });
+
+// Restore API button state if key was saved
+updateApiBtn();
+render();
 function updateApiBtn() {
   const dot = document.getElementById('api-dot');
   const lbl = document.getElementById('api-btn-label');
@@ -1101,12 +1279,84 @@ function toggleMeal(id, card) {
   const open = detail.style.display === 'block';
   detail.style.display = open ? 'none' : 'block';
   if (arrow) arrow.style.transform = open ? '' : 'rotate(180deg)';
-  if (!open) card.style.background = 'var(--s3)';
-  else card.style.background = '';
+  if (card) { if (!open) card.style.background = 'var(--s3)'; else card.style.background = ''; }
 }
 
-document.addEventListener('keydown', e => { if (e.key==='Escape') closeApiModal(); });
-render();
+async function regenerateMeal(idx) {
+  const btn = document.getElementById(`swap-btn-${idx}`);
+  const ico = document.getElementById(`swap-ico-${idx}`);
+  const lbl = document.getElementById(`swap-lbl-${idx}`);
+  if (btn) { btn.disabled = true; if(ico) ico.textContent = '⟳'; if(lbl) lbl.textContent = '…'; }
+
+  const meals = S.weekly ? S.mealPlan.flatMap(d=>d.meals) : S.mealPlan;
+  const current = meals[idx];
+  const slot = current.meal;
+  let newMeal = null;
+
+  // ── Try dataset first ──────────────────────────────────────────
+  if (DB && DB.length > 0) {
+    const usedIds = new Set(meals.map(m=>m.id).filter(Boolean));
+    const pool = DB.filter(d =>
+      d.meal_types.includes(slot) &&
+      !usedIds.has(d.id) &&
+      (S.cuisines.length === 0 || S.cuisines.includes(d.cuisine)) &&
+      !d.allergens.some(a => S.allergies.includes(a))
+    );
+    if (pool.length) {
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      newMeal = {
+        meal: slot, name: pick.name, description: pick.description,
+        calories: pick.calories, protein_g: pick.protein_g, carbs_g: pick.carbs_g,
+        fat_g: pick.fat_g, budget_rm: pick.budget_rm, cuisine: pick.cuisine,
+        ingredients: pick.ingredients || [], id: pick.id
+      };
+    }
+  }
+
+  // ── AI fallback for this single meal ──────────────────────────
+  if (!newMeal) {
+    try {
+      const m = S.macros;
+      const perMeal = Math.round(S.adjTDEE / S.numMeals);
+      const allergyNote = S.allergies.length ? `Avoid: ${S.allergies.join(', ')}.` : '';
+      const cuisineNote = S.cuisines.length ? `Cuisine preference: ${S.cuisines.join(' or ')}.` : '';
+      const currentNames = meals.map(me=>me.name).join(', ');
+      const prompt = `You are a nutrition expert. Generate a single replacement ${slot} meal.
+Profile: ${S.goal} goal, diet: ${S.diets.join(', ')}, ${S.lifestyle} activity.
+Target: ~${perMeal} kcal, P~${m.p}g, C~${m.c}g, F~${m.f}g.
+${allergyNote} ${cuisineNote}
+Do NOT repeat any of these meals already in the plan: ${currentNames}.
+Reply ONLY with a single JSON object, no array, no markdown:
+{"meal":"${slot}","name":"...","description":"...","calories":N,"protein_g":N,"carbs_g":N,"fat_g":N}`;
+      const txt = await callAI(prompt, 400);
+      const data = JSON.parse(txt.replace(/```json|```/g,'').trim());
+      newMeal = { meal: slot, ...data };
+    } catch(e) {
+      if (btn) { btn.disabled = false; if(ico) ico.textContent = '↺'; if(lbl) lbl.textContent = 'new'; }
+      return;
+    }
+  }
+
+  // ── Apply the swap ─────────────────────────────────────────────
+  if (S.weekly) {
+    let flat = S.mealPlan.flatMap(d=>d.meals);
+    flat[idx] = newMeal;
+    let i = 0;
+    S.mealPlan = S.mealPlan.map(d => ({ ...d, meals: d.meals.map(() => flat[i++]) }));
+  } else {
+    S.mealPlan[idx] = newMeal;
+  }
+  render();
+}
+
+function resetApp() {
+  Object.assign(S,{step:'start',path:null,weight:S.weight,height:S.height,age:S.age,gender:S.gender,
+    goal:'',numMeals:0,diets:[],allergies:[],cuisines:[],weekly:false,budget:'No need',lifestyle:'',priceMode:'hawker',
+    bmr:0,tdee:0,bmi:0,adjTDEE:0,macros:{p:0,c:0,f:0,pPct:0,cPct:0,fPct:0},
+    mealPlan:null,grocery:null,costs:null,error:null,planError:null,groceryError:null,costError:null,
+    planSource:null,_dsStatus:null});
+  render();
+}
 </script>
 </body>
 </html>
