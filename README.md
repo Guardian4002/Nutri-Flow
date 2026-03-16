@@ -15,3 +15,4 @@ Download `nutrition-bot.html` and open it in any browser.
 
 ## License
 © 2025 Guardian4002. All Rights Reserved.
+for now
