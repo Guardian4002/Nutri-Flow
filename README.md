@@ -1,4 +1,4 @@
-# NutriFlow v2 — Health & Meal Planner
+# NutriFlow v.8.1 — Health & Meal Planner
 
 AI-powered nutrition and meal planning app. Works locally with no server needed.
 
