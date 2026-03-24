@@ -1,8 +1,8 @@
 {
   "version": "0.8.1",
-  "description": "NutriFlow food dataset v0.8.1 \u2014 251 dishes across 20+ world cuisines",
+  "description": "NutriFlow food dataset v0.8.1 — 251 dishes across 20+ world cuisines",
   "author": "Guardian4002",
-  "copyright": "\u00a9 2025 Guardian4002. All rights reserved.",
+  "copyright": "© 2025 Guardian4002. All rights reserved.",
   "license": "All Rights Reserved. No part of this dataset may be reproduced, distributed, or used commercially without explicit written permission from the author.",
   "dishes": [
     {
@@ -108,6 +108,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences",
@@ -154,6 +155,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "Low Carbs",
         "No Preferences",
@@ -253,6 +255,7 @@
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "Vegetarian",
         "No Preferences"
@@ -293,12 +296,13 @@
     {
       "id": "b007",
       "name": "Banana Protein Smoothie",
-      "description": "Blended banana with protein powder, oats, and almond milk \u2014 a quick grab-and-go breakfast.",
+      "description": "Blended banana with protein powder, oats, and almond milk — a quick grab-and-go breakfast.",
       "meal_types": [
         "Breakfast",
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "Vegetarian",
         "No Preferences"
@@ -399,6 +403,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences"
@@ -447,11 +452,12 @@
     {
       "id": "b010",
       "name": "Weetabix with Low-Fat Milk",
-      "description": "Two Weetabix biscuits with cold low-fat milk \u2014 simple, filling, high-fibre breakfast.",
+      "description": "Two Weetabix biscuits with cold low-fat milk — simple, filling, high-fibre breakfast.",
       "meal_types": [
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "High Protein"
@@ -935,6 +941,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -1090,7 +1097,7 @@
     {
       "id": "l012",
       "name": "Beef Burger with Salad",
-      "description": "Grilled beef patty in a bun with lettuce, tomato, and light mayo \u2014 comfort food done right.",
+      "description": "Grilled beef patty in a bun with lettuce, tomato, and light mayo — comfort food done right.",
       "meal_types": [
         "Lunch"
       ],
@@ -1150,6 +1157,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -1203,12 +1211,13 @@
     {
       "id": "l014",
       "name": "Pasta Aglio e Olio",
-      "description": "Classic Italian pasta with garlic, olive oil, parsley, and chili flakes \u2014 simple and delicious.",
+      "description": "Classic Italian pasta with garlic, olive oil, parsley, and chili flakes — simple and delicious.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -1900,6 +1909,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -2005,12 +2015,13 @@
     {
       "id": "s005",
       "name": "Low-Fat Chocolate Milk",
-      "description": "A glass of low-fat chocolate milk \u2014 a popular post-workout recovery drink.",
+      "description": "A glass of low-fat chocolate milk — a popular post-workout recovery drink.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "Vegetarian",
         "No Preferences"
@@ -2096,6 +2107,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -2255,6 +2267,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "Vegetarian"
@@ -2346,6 +2359,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences",
@@ -2391,7 +2405,7 @@
     {
       "id": "h002",
       "name": "Nasi Campur (Mixed Rice)",
-      "description": "White rice served with an assortment of side dishes \u2014 typically 2\u20133 protein and vegetable options from the warung counter.",
+      "description": "White rice served with an assortment of side dishes — typically 2–3 protein and vegetable options from the warung counter.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -2658,12 +2672,13 @@
     {
       "id": "h007",
       "name": "Tofu Scramble",
-      "description": "Crumbled firm tofu saut\u00e9ed with turmeric, nutritional yeast, and vegetables \u2014 a vegan egg alternative.",
+      "description": "Crumbled firm tofu sautéed with turmeric, nutritional yeast, and vegetables — a vegan egg alternative.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegan",
         "Vegetarian",
         "High Protein",
@@ -2830,6 +2845,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Milk",
@@ -3403,6 +3419,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences",
@@ -3741,13 +3758,14 @@
     },
     {
       "id": "fr001",
-      "name": "Croque Monsieur",
-      "description": "Classic French toasted sandwich with ham, melted Gruy\u00e8re cheese, and b\u00e9chamel sauce. A Parisian caf\u00e9 staple.",
+      "name": "Croque Monsieur (Halal)",
+      "description": "A classic French toasted sandwich with halal turkey ham and melted Gruyère cheese, topped with béchamel sauce.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -3769,39 +3787,36 @@
       "ingredients": [
         {
           "item": "White bread",
-          "amount": "2 thick slices"
+          "amount": "2 slices"
         },
         {
-          "item": "Cooked ham",
+          "item": "Halal turkey ham",
           "amount": "60g"
         },
         {
-          "item": "Gruy\u00e8re cheese (grated)",
-          "amount": "50g"
-        },
-        {
-          "item": "B\u00e9chamel sauce",
-          "amount": "3 tbsp"
-        },
-        {
-          "item": "Dijon mustard",
-          "amount": "1 tsp"
+          "item": "Gruyère cheese",
+          "amount": "40g"
         },
         {
           "item": "Butter",
-          "amount": "1 tsp"
+          "amount": "10g"
+        },
+        {
+          "item": "Béchamel sauce",
+          "amount": "30g"
         }
       ]
     },
     {
       "id": "fr002",
-      "name": "Soupe \u00e0 l'Oignon",
-      "description": "Slow-caramelized French onion soup topped with toasted baguette and melted Comt\u00e9 cheese.",
+      "name": "Soupe à l'Oignon",
+      "description": "Slow-caramelized French onion soup topped with toasted baguette and melted Comté cheese.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -3833,7 +3848,7 @@
           "amount": "2 slices"
         },
         {
-          "item": "Comt\u00e9 or Gruy\u00e8re cheese",
+          "item": "Comté or Gruyère cheese",
           "amount": "40g"
         },
         {
@@ -3852,12 +3867,13 @@
     },
     {
       "id": "fr003",
-      "name": "Salade Ni\u00e7oise",
-      "description": "A composed Proven\u00e7al salad with tuna, soft-boiled eggs, green beans, olives, and anchovies in vinaigrette.",
+      "name": "Salade Niçoise",
+      "description": "A composed Provençal salad with tuna, soft-boiled eggs, green beans, olives, and anchovies in vinaigrette.",
       "meal_types": [
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -3915,13 +3931,14 @@
     },
     {
       "id": "fr004",
-      "name": "Quiche Lorraine",
-      "description": "Buttery pastry filled with a creamy egg and bacon custard. A classic from the Lorraine region of France.",
+      "name": "Quiche Lorraine (Halal)",
+      "description": "A rich French pastry tart filled with eggs, cream, and halal turkey strips in a buttery shortcrust pastry.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -3942,40 +3959,37 @@
       "cuisine": "French",
       "ingredients": [
         {
-          "item": "Shortcrust pastry shell",
+          "item": "Shortcrust pastry",
           "amount": "100g"
         },
         {
-          "item": "Lardons (bacon pieces)",
-          "amount": "60g"
+          "item": "Halal turkey strips",
+          "amount": "80g"
         },
         {
           "item": "Eggs",
-          "amount": "3 whole"
+          "amount": "2"
         },
         {
-          "item": "Heavy cream",
+          "item": "Cream",
           "amount": "100ml"
         },
         {
-          "item": "Gruy\u00e8re cheese",
+          "item": "Gruyère cheese",
           "amount": "40g"
-        },
-        {
-          "item": "Nutmeg",
-          "amount": "pinch"
         }
       ]
     },
     {
       "id": "fr005",
       "name": "Ratatouille with Crusty Bread",
-      "description": "Slow-roasted Proven\u00e7al vegetable stew of zucchini, eggplant, tomato, and peppers with herbs de Provence.",
+      "description": "Slow-roasted Provençal vegetable stew of zucchini, eggplant, tomato, and peppers with herbs de Provence.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -4032,13 +4046,14 @@
     },
     {
       "id": "fr006",
-      "name": "Poulet R\u00f4ti (Roast Chicken)",
+      "name": "Poulet Rôti (Roast Chicken)",
       "description": "Golden herb-roasted half chicken with garlic butter, served with roasted potatoes and green beans.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Gluten"
@@ -4090,13 +4105,14 @@
     },
     {
       "id": "fr007",
-      "name": "Cr\u00eapes with Berries",
-      "description": "Thin French cr\u00eapes with whipped cream, fresh strawberries and a drizzle of honey. A light sweet breakfast.",
+      "name": "Crêpes with Berries",
+      "description": "Thin French crêpes with whipped cream, fresh strawberries and a drizzle of honey. A light sweet breakfast.",
       "meal_types": [
         "Breakfast",
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -4206,14 +4222,15 @@
     },
     {
       "id": "cn002",
-      "name": "Dim Sum Platter",
-      "description": "A selection of steamed dumplings: har gow (prawn), siu mai (pork & prawn), and cheung fun rice rolls.",
+      "name": "Halal Dim Sum Platter",
+      "description": "A curated halal dim sum selection with chicken har gow, beef cheung fun, and steamed buns.",
       "meal_types": [
         "Breakfast",
         "Lunch",
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -4233,36 +4250,33 @@
       "cuisine": "Chinese",
       "ingredients": [
         {
-          "item": "Har gow (prawn dumplings)",
-          "amount": "4 pieces"
-        },
-        {
-          "item": "Siu mai (pork dumplings)",
+          "item": "Halal chicken har gow",
           "amount": "3 pieces"
         },
         {
-          "item": "Cheung fun (rice roll)",
-          "amount": "2 pieces"
+          "item": "Halal beef cheung fun",
+          "amount": "2 rolls"
+        },
+        {
+          "item": "Halal steamed buns",
+          "amount": "2"
         },
         {
           "item": "Soy sauce",
           "amount": "1 tbsp"
-        },
-        {
-          "item": "Chili oil",
-          "amount": "1 tsp"
         }
       ]
     },
     {
       "id": "cn003",
-      "name": "Mapo Tofu",
-      "description": "Silken tofu and minced pork in a fiery, numbing Sichuan sauce with fermented black beans and chili oil.",
+      "name": "Halal Mapo Tofu",
+      "description": "Fiery Sichuan tofu with halal beef mince, doubanjiang, and Sichuan pepper in a numbing sauce.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -4285,32 +4299,20 @@
           "amount": "200g"
         },
         {
-          "item": "Minced pork",
+          "item": "Halal beef mince",
           "amount": "80g"
         },
         {
-          "item": "Doubanjiang (chili bean paste)",
-          "amount": "2 tbsp"
-        },
-        {
-          "item": "Fermented black beans",
+          "item": "Doubanjiang",
           "amount": "1 tbsp"
         },
         {
           "item": "Garlic",
-          "amount": "3 cloves"
+          "amount": "2 cloves"
         },
         {
-          "item": "Ginger",
-          "amount": "5g"
-        },
-        {
-          "item": "Sichuan peppercorns",
+          "item": "Sichuan pepper",
           "amount": "1 tsp"
-        },
-        {
-          "item": "White rice",
-          "amount": "150g cooked"
         }
       ]
     },
@@ -4433,13 +4435,14 @@
     },
     {
       "id": "cn006",
-      "name": "Congee with Century Egg & Pork",
-      "description": "Silky rice porridge topped with century egg, shredded pork, ginger threads, and crispy youtiao (doughstick).",
+      "name": "Congee with Chicken",
+      "description": "A comforting Chinese rice porridge simmered with tender shredded chicken, ginger, and sesame oil.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -4460,31 +4463,23 @@
       "ingredients": [
         {
           "item": "Jasmine rice",
-          "amount": "60g dry"
+          "amount": "80g"
         },
         {
-          "item": "Century egg",
-          "amount": "1 whole"
+          "item": "Halal chicken breast",
+          "amount": "100g"
         },
         {
-          "item": "Shredded pork",
-          "amount": "60g"
-        },
-        {
-          "item": "Ginger (julienned)",
-          "amount": "5g"
-        },
-        {
-          "item": "Youtiao (doughstick)",
-          "amount": "1 piece"
-        },
-        {
-          "item": "Spring onion",
-          "amount": "1 tbsp"
+          "item": "Ginger",
+          "amount": "1 tsp"
         },
         {
           "item": "Sesame oil",
           "amount": "1 tsp"
+        },
+        {
+          "item": "Spring onion",
+          "amount": "1 stalk"
         }
       ]
     },
@@ -4612,7 +4607,7 @@
     {
       "id": "af001",
       "name": "Kabuli Pulao",
-      "description": "Afghanistan's national dish \u2014 fragrant basmati rice cooked with lamb, caramelized carrots, raisins, and toasted almonds.",
+      "description": "Afghanistan's national dish — fragrant basmati rice cooked with lamb, caramelized carrots, raisins, and toasted almonds.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -5088,6 +5083,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "Low Carbs",
         "No Preferences",
@@ -5130,13 +5126,14 @@
     },
     {
       "id": "jp003",
-      "name": "Ramen (Shoyu)",
-      "description": "Rich soy-based chicken broth noodle soup topped with chashu pork, soft-boiled egg, nori and bamboo shoots.",
+      "name": "Ramen (Halal Shoyu)",
+      "description": "Warming Japanese ramen with halal chicken broth, soy-seasoned soup, chewy noodles, and halal chicken chashu.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -5157,31 +5154,23 @@
       "ingredients": [
         {
           "item": "Ramen noodles",
-          "amount": "120g"
+          "amount": "100g"
         },
         {
-          "item": "Chashu pork belly",
-          "amount": "60g"
+          "item": "Halal chicken chashu",
+          "amount": "80g"
         },
         {
-          "item": "Soft-boiled egg",
-          "amount": "1 whole"
-        },
-        {
-          "item": "Soy broth",
+          "item": "Chicken broth",
           "amount": "400ml"
         },
         {
-          "item": "Bamboo shoots (menma)",
-          "amount": "30g"
+          "item": "Soy sauce",
+          "amount": "2 tbsp"
         },
         {
-          "item": "Nori sheet",
-          "amount": "1 piece"
-        },
-        {
-          "item": "Spring onion",
-          "amount": "1 tbsp"
+          "item": "Egg",
+          "amount": "1"
         }
       ]
     },
@@ -5241,7 +5230,7 @@
     {
       "id": "jp005",
       "name": "Edamame and Gyoza",
-      "description": "Steamed and pan-fried pork-and-cabbage dumplings with salted edamame \u2014 a Japanese izakaya classic.",
+      "description": "Steamed and pan-fried pork-and-cabbage dumplings with salted edamame — a Japanese izakaya classic.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack",
@@ -5286,7 +5275,7 @@
     {
       "id": "jp006",
       "name": "Yakitori Chicken Skewers",
-      "description": "Charcoal-grilled chicken skewers basted with tare sauce \u2014 thigh meat, skin and all the best parts.",
+      "description": "Charcoal-grilled chicken skewers basted with tare sauce — thigh meat, skin and all the best parts.",
       "meal_types": [
         "Dinner",
         "Afternoon Snack"
@@ -5332,13 +5321,14 @@
     },
     {
       "id": "jp007",
-      "name": "Miso Ramen",
-      "description": "Creamy miso-based broth with egg noodles, corn, butter, chashu and a soft-boiled egg. A Hokkaido specialty.",
+      "name": "Miso Ramen (Halal)",
+      "description": "Rich miso-based halal ramen with chicken broth, halal chicken slices, corn, and bean sprouts.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -5360,31 +5350,23 @@
       "ingredients": [
         {
           "item": "Ramen noodles",
-          "amount": "120g"
+          "amount": "100g"
         },
         {
           "item": "Miso paste",
-          "amount": "3 tbsp"
-        },
-        {
-          "item": "Corn kernels",
-          "amount": "40g"
-        },
-        {
-          "item": "Butter",
-          "amount": "1 tsp"
-        },
-        {
-          "item": "Chashu pork",
-          "amount": "60g"
-        },
-        {
-          "item": "Soft-boiled egg",
-          "amount": "1 whole"
+          "amount": "2 tbsp"
         },
         {
           "item": "Chicken broth",
           "amount": "400ml"
+        },
+        {
+          "item": "Halal chicken slices",
+          "amount": "80g"
+        },
+        {
+          "item": "Corn kernels",
+          "amount": "50g"
         }
       ]
     },
@@ -5397,6 +5379,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Milk"
@@ -5507,13 +5490,14 @@
     },
     {
       "id": "kr003",
-      "name": "Kimchi Jjigae",
-      "description": "Spicy, sour kimchi stew with tofu and pork, simmered until deeply flavourful. A Korean home staple.",
+      "name": "Beef Kimchi Jjigae",
+      "description": "A hearty Korean kimchi stew made with halal beef, tofu, and well-fermented kimchi in a rich, spicy broth.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -5534,40 +5518,37 @@
       "cuisine": "Korean",
       "ingredients": [
         {
+          "item": "Halal beef",
+          "amount": "100g"
+        },
+        {
           "item": "Kimchi",
           "amount": "150g"
         },
         {
-          "item": "Pork belly (diced)",
-          "amount": "80g"
-        },
-        {
-          "item": "Firm tofu",
+          "item": "Tofu",
           "amount": "100g"
         },
         {
-          "item": "Gochugaru (chili flakes)",
+          "item": "Gochugaru",
           "amount": "1 tbsp"
         },
         {
-          "item": "Sesame oil",
-          "amount": "1 tsp"
-        },
-        {
-          "item": "Rice (side)",
-          "amount": "100g cooked"
+          "item": "Beef broth",
+          "amount": "300ml"
         }
       ]
     },
     {
       "id": "kr004",
-      "name": "Japchae",
-      "description": "Glass noodles stir-fried with colourful vegetables, beef strips and sesame in a sweet soy sauce.",
+      "name": "Halal Japchae",
+      "description": "Korean glass noodles stir-fried with halal beef, spinach, mushrooms, and carrots in sweet soy sesame sauce.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk"
       ],
@@ -5587,48 +5568,37 @@
       "cuisine": "Korean",
       "ingredients": [
         {
-          "item": "Glass noodles (dangmyeon)",
-          "amount": "100g dry"
+          "item": "Glass noodles",
+          "amount": "100g"
         },
         {
-          "item": "Beef strips",
+          "item": "Halal beef strips",
           "amount": "80g"
         },
         {
           "item": "Spinach",
-          "amount": "40g"
+          "amount": "50g"
         },
         {
-          "item": "Carrot (julienned)",
-          "amount": "40g"
-        },
-        {
-          "item": "Mushrooms",
-          "amount": "40g"
+          "item": "Shiitake mushrooms",
+          "amount": "50g"
         },
         {
           "item": "Soy sauce",
           "amount": "2 tbsp"
-        },
-        {
-          "item": "Sesame oil",
-          "amount": "1 tbsp"
-        },
-        {
-          "item": "Sugar",
-          "amount": "1 tsp"
         }
       ]
     },
     {
       "id": "kr005",
-      "name": "Tteokbokki",
-      "description": "Chewy rice cakes in a fiery sweet-spicy gochujang sauce with fish cakes and spring onion.",
+      "name": "Halal Tteokbokki",
+      "description": "Chewy Korean rice cakes in sweet-spicy gochujang sauce with halal fish cakes and spring onion.",
       "meal_types": [
         "Afternoon Snack",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -5648,28 +5618,24 @@
       "cuisine": "Korean",
       "ingredients": [
         {
-          "item": "Rice cakes (tteok)",
-          "amount": "200g"
+          "item": "Rice cakes",
+          "amount": "150g"
         },
         {
-          "item": "Fish cakes",
+          "item": "Halal fish cakes",
           "amount": "80g"
         },
         {
           "item": "Gochujang paste",
-          "amount": "3 tbsp"
-        },
-        {
-          "item": "Gochugaru",
-          "amount": "1 tsp"
-        },
-        {
-          "item": "Sugar",
-          "amount": "1 tbsp"
+          "amount": "2 tbsp"
         },
         {
           "item": "Spring onion",
           "amount": "2 stalks"
+        },
+        {
+          "item": "Sesame seeds",
+          "amount": "1 tsp"
         }
       ]
     },
@@ -5808,6 +5774,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -5920,7 +5887,7 @@
     {
       "id": "th005",
       "name": "Tom Kha Gai",
-      "description": "Creamy coconut soup with chicken, galangal, lemongrass and mushrooms \u2014 milder than tom yam, richly fragrant.",
+      "description": "Creamy coconut soup with chicken, galangal, lemongrass and mushrooms — milder than tom yam, richly fragrant.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -6043,13 +6010,14 @@
     },
     {
       "id": "vn002",
-      "name": "Banh Mi",
-      "description": "Crispy French baguette filled with p\u00e2t\u00e9, Vietnamese cold cuts, pickled daikon, cucumber, chili and coriander.",
+      "name": "Halal Bánh Mì",
+      "description": "Vietnamese baguette with halal grilled chicken, pickled daikon, carrot, jalapeño, and fresh herbs.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -6069,36 +6037,24 @@
       "cuisine": "Vietnamese",
       "ingredients": [
         {
-          "item": "French baguette",
-          "amount": "1 small (100g)"
+          "item": "Vietnamese baguette",
+          "amount": "1"
         },
         {
-          "item": "Vietnamese cold cuts",
-          "amount": "60g"
+          "item": "Halal grilled chicken",
+          "amount": "100g"
         },
         {
-          "item": "Chicken p\u00e2t\u00e9",
-          "amount": "20g"
-        },
-        {
-          "item": "Pickled daikon & carrot",
-          "amount": "40g"
-        },
-        {
-          "item": "Cucumber slices",
+          "item": "Pickled daikon",
           "amount": "30g"
         },
         {
-          "item": "Jalape\u00f1o",
-          "amount": "3 slices"
+          "item": "Pickled carrot",
+          "amount": "30g"
         },
         {
           "item": "Fresh coriander",
-          "amount": "10g"
-        },
-        {
-          "item": "Sriracha",
-          "amount": "1 tsp"
+          "amount": "handful"
         }
       ]
     },
@@ -6159,14 +6115,15 @@
     },
     {
       "id": "vn004",
-      "name": "Goi Cuon (Fresh Spring Rolls)",
-      "description": "Light and fresh rice paper rolls filled with shrimp, pork, vermicelli, herbs and served with peanut sauce.",
+      "name": "Halal Goi Cuon",
+      "description": "Vietnamese rice paper rolls with halal prawns, vermicelli, lettuce, and fresh herbs with peanut dipping sauce.",
       "meal_types": [
         "Lunch",
         "Morning Snack",
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk",
         "No Gluten"
@@ -6188,32 +6145,24 @@
       "cuisine": "Vietnamese",
       "ingredients": [
         {
-          "item": "Rice paper wrappers",
-          "amount": "4 sheets"
+          "item": "Rice paper sheets",
+          "amount": "4"
         },
         {
-          "item": "Cooked shrimp",
-          "amount": "80g"
+          "item": "Halal prawns",
+          "amount": "100g"
         },
         {
-          "item": "Pork (boiled, sliced)",
-          "amount": "40g"
-        },
-        {
-          "item": "Rice vermicelli",
-          "amount": "60g"
+          "item": "Vermicelli noodles",
+          "amount": "50g"
         },
         {
           "item": "Lettuce",
-          "amount": "30g"
-        },
-        {
-          "item": "Mint & coriander",
-          "amount": "15g"
+          "amount": "4 leaves"
         },
         {
           "item": "Peanut dipping sauce",
-          "amount": "2 tbsp"
+          "amount": "3 tbsp"
         }
       ]
     },
@@ -6226,6 +6175,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6283,6 +6233,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6334,12 +6285,13 @@
     {
       "id": "mx003",
       "name": "Chicken Quesadilla",
-      "description": "Crispy flour tortilla filled with grilled chicken, melted cheese and jalape\u00f1os, served with guacamole.",
+      "description": "Crispy flour tortilla filled with grilled chicken, melted cheese and jalapeños, served with guacamole.",
       "meal_types": [
         "Lunch",
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6371,7 +6323,7 @@
           "amount": "50g"
         },
         {
-          "item": "Jalape\u00f1os",
+          "item": "Jalapeños",
           "amount": "4 slices"
         },
         {
@@ -6393,6 +6345,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -6436,7 +6389,7 @@
           "amount": "10g"
         },
         {
-          "item": "Jalape\u00f1o",
+          "item": "Jalapeño",
           "amount": "2 slices"
         }
       ]
@@ -6450,6 +6403,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6500,13 +6454,14 @@
     },
     {
       "id": "it001",
-      "name": "Spaghetti Carbonara",
-      "description": "Classic Roman pasta with eggs, guanciale (cured pork), Pecorino Romano and black pepper. No cream.",
+      "name": "Spaghetti Carbonara (Halal)",
+      "description": "Creamy Italian pasta with halal beef strips instead of guanciale, eggs, Pecorino Romano, and black pepper.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6528,27 +6483,23 @@
       "ingredients": [
         {
           "item": "Spaghetti",
-          "amount": "100g dry"
+          "amount": "100g"
         },
         {
-          "item": "Guanciale or bacon",
-          "amount": "60g"
+          "item": "Halal beef strips",
+          "amount": "80g"
         },
         {
           "item": "Eggs",
-          "amount": "2 whole"
+          "amount": "2"
         },
         {
           "item": "Pecorino Romano",
-          "amount": "30g"
+          "amount": "40g"
         },
         {
           "item": "Black pepper",
           "amount": "1 tsp"
-        },
-        {
-          "item": "Pasta water",
-          "amount": "50ml"
         }
       ]
     },
@@ -6561,6 +6512,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -6614,6 +6566,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -6663,13 +6616,14 @@
     },
     {
       "id": "it004",
-      "name": "Lasagne",
-      "description": "Layers of pasta sheets, rich beef bolognese, creamy b\u00e9chamel and Parmesan, baked golden.",
+      "name": "Lasagne (Halal)",
+      "description": "Classic Italian layered pasta with rich halal beef Bolognese, creamy béchamel, and melted mozzarella.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6691,31 +6645,23 @@
       "ingredients": [
         {
           "item": "Lasagne sheets",
-          "amount": "120g"
+          "amount": "150g"
         },
         {
-          "item": "Beef mince",
-          "amount": "120g"
+          "item": "Halal beef mince",
+          "amount": "150g"
         },
         {
           "item": "Tomato sauce",
+          "amount": "150g"
+        },
+        {
+          "item": "Béchamel sauce",
           "amount": "100ml"
         },
         {
-          "item": "B\u00e9chamel sauce",
-          "amount": "80ml"
-        },
-        {
-          "item": "Parmesan",
-          "amount": "30g"
-        },
-        {
-          "item": "Onion",
-          "amount": "1/2"
-        },
-        {
-          "item": "Garlic",
-          "amount": "2 cloves"
+          "item": "Mozzarella",
+          "amount": "60g"
         }
       ]
     },
@@ -6728,6 +6674,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Low Carbs",
         "No Preferences",
@@ -6779,6 +6726,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences"
@@ -6826,11 +6774,12 @@
     {
       "id": "it007",
       "name": "Tiramisu",
-      "description": "Classic Italian coffee dessert \u2014 ladyfingers soaked in espresso, layered with mascarpone cream and dusted cocoa.",
+      "description": "Classic Italian coffee dessert — ladyfingers soaked in espresso, layered with mascarpone cream and dusted cocoa.",
       "meal_types": [
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -6885,6 +6834,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Low Carbs",
         "No Preferences",
@@ -6937,12 +6887,13 @@
     {
       "id": "gr002",
       "name": "Chicken Souvlaki with Pita",
-      "description": "Marinated grilled chicken skewers wrapped in warm pita with tzatziki, tomato and onion.",
+      "description": "Halal chicken skewers marinated in lemon, garlic, and oregano, grilled and served in pita with tzatziki.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -6962,44 +6913,37 @@
       "cuisine": "Greek",
       "ingredients": [
         {
-          "item": "Chicken breast (cubed)",
-          "amount": "180g"
+          "item": "Halal chicken breast",
+          "amount": "200g"
         },
         {
           "item": "Pita bread",
-          "amount": "1 piece"
+          "amount": "1"
         },
         {
-          "item": "Tzatziki",
-          "amount": "50g"
+          "item": "Tzatziki sauce",
+          "amount": "3 tbsp"
         },
         {
-          "item": "Tomato (sliced)",
-          "amount": "60g"
-        },
-        {
-          "item": "Red onion",
-          "amount": "20g"
+          "item": "Tomato",
+          "amount": "1"
         },
         {
           "item": "Lemon juice",
           "amount": "1 tbsp"
-        },
-        {
-          "item": "Oregano & garlic",
-          "amount": "1 tsp each"
         }
       ]
     },
     {
       "id": "gr003",
       "name": "Moussaka",
-      "description": "Baked layers of eggplant, spiced ground lamb and creamy b\u00e9chamel \u2014 the Greek equivalent of lasagne.",
+      "description": "Greek baked casserole with halal lamb mince, roasted aubergine, tomato sauce, and creamy béchamel topping.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -7019,28 +6963,24 @@
       "cuisine": "Greek",
       "ingredients": [
         {
-          "item": "Eggplant",
+          "item": "Halal lamb mince",
           "amount": "200g"
         },
         {
-          "item": "Ground lamb",
-          "amount": "120g"
+          "item": "Aubergine",
+          "amount": "200g"
         },
         {
           "item": "Tomato sauce",
-          "amount": "80ml"
+          "amount": "150g"
         },
         {
-          "item": "B\u00e9chamel sauce",
-          "amount": "100ml"
+          "item": "Béchamel sauce",
+          "amount": "150ml"
         },
         {
           "item": "Cinnamon",
-          "amount": "1/2 tsp"
-        },
-        {
-          "item": "Parmesan",
-          "amount": "20g"
+          "amount": "1 tsp"
         }
       ]
     },
@@ -7054,6 +6994,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -7132,7 +7073,7 @@
           "amount": "150g"
         },
         {
-          "item": "Flatbread (d\u00fcr\u00fcm)",
+          "item": "Flatbread (dürüm)",
           "amount": "1 piece"
         },
         {
@@ -7375,7 +7316,7 @@
     {
       "id": "mo003",
       "name": "Harira Soup",
-      "description": "Traditional Moroccan tomato and lentil soup with lamb, chickpeas, coriander and smen butter \u2014 served at Iftar.",
+      "description": "Traditional Moroccan tomato and lentil soup with lamb, chickpeas, coriander and smen butter — served at Iftar.",
       "meal_types": [
         "Breakfast",
         "Lunch",
@@ -7657,7 +7598,7 @@
     {
       "id": "et001",
       "name": "Doro Wat",
-      "description": "Ethiopia's national dish \u2014 slow-cooked whole chicken pieces in fiery berbere spiced onion sauce with hard-boiled eggs.",
+      "description": "Ethiopia's national dish — slow-cooked whole chicken pieces in fiery berbere spiced onion sauce with hard-boiled eggs.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -7766,13 +7707,14 @@
     },
     {
       "id": "br001",
-      "name": "Feijoada",
-      "description": "Brazil's national black bean stew with pork ribs, sausage and smoked meat served over rice with farofa and orange.",
+      "name": "Feijoada (Halal)",
+      "description": "Brazilian black bean stew made with halal beef and lamb, slow-cooked with spices and served with rice.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -7791,28 +7733,20 @@
       "cuisine": "Brazilian",
       "ingredients": [
         {
-          "item": "Black beans (cooked)",
+          "item": "Black beans",
           "amount": "150g"
         },
         {
-          "item": "Pork ribs",
+          "item": "Halal beef chunks",
           "amount": "100g"
         },
         {
-          "item": "Smoked sausage",
-          "amount": "60g"
+          "item": "Halal lamb sausage",
+          "amount": "80g"
         },
         {
-          "item": "White rice",
-          "amount": "150g cooked"
-        },
-        {
-          "item": "Farofa (toasted cassava)",
-          "amount": "30g"
-        },
-        {
-          "item": "Orange slices",
-          "amount": "2 pieces"
+          "item": "Onion",
+          "amount": "1"
         },
         {
           "item": "Garlic",
@@ -7822,7 +7756,7 @@
     },
     {
       "id": "br002",
-      "name": "P\u00e3o de Queijo",
+      "name": "Pão de Queijo",
       "description": "Warm chewy Brazilian cheese bread rolls made from tapioca flour and queijo minas cheese.",
       "meal_types": [
         "Breakfast",
@@ -7830,6 +7764,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Gluten"
@@ -7878,12 +7813,13 @@
     {
       "id": "us001",
       "name": "Classic Cheeseburger",
-      "description": "Juicy beef patty with American cheese, lettuce, tomato, pickles, onion and ketchup in a sesame seed bun.",
+      "description": "Classic halal beef smash burger with melted American cheese, lettuce, tomato, pickles, and special sauce.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -7905,36 +7841,37 @@
       "cuisine": "American",
       "ingredients": [
         {
-          "item": "Beef patty (150g)",
-          "amount": "1 piece"
+          "item": "Halal beef patty",
+          "amount": "150g"
+        },
+        {
+          "item": "Brioche bun",
+          "amount": "1"
         },
         {
           "item": "American cheese",
           "amount": "1 slice"
         },
         {
-          "item": "Sesame seed bun",
-          "amount": "1 piece"
+          "item": "Lettuce",
+          "amount": "2 leaves"
         },
         {
-          "item": "Lettuce, tomato, pickle, onion",
-          "amount": "80g"
-        },
-        {
-          "item": "Ketchup & mustard",
-          "amount": "2 tbsp"
+          "item": "Tomato",
+          "amount": "2 slices"
         }
       ]
     },
     {
       "id": "us002",
-      "name": "BBQ Pulled Pork Sandwich",
-      "description": "Slow-smoked pulled pork tossed in smoky BBQ sauce served in a brioche bun with coleslaw.",
+      "name": "BBQ Pulled Chicken Sandwich",
+      "description": "Smoky slow-cooked halal pulled chicken in BBQ sauce on a toasted brioche bun with coleslaw.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -7955,35 +7892,32 @@
       "cuisine": "American",
       "ingredients": [
         {
-          "item": "Pulled pork (smoked)",
-          "amount": "150g"
+          "item": "Halal chicken thighs",
+          "amount": "200g"
         },
         {
           "item": "BBQ sauce",
-          "amount": "3 tbsp"
+          "amount": "60ml"
         },
         {
           "item": "Brioche bun",
-          "amount": "1 piece"
+          "amount": "1"
         },
         {
           "item": "Coleslaw",
-          "amount": "60g"
-        },
-        {
-          "item": "Pickles",
-          "amount": "4 slices"
+          "amount": "50g"
         }
       ]
     },
     {
       "id": "us003",
       "name": "Grilled Chicken Wrap",
-      "description": "Chargrilled chicken breast in a whole wheat wrap with romaine, tomato, avocado and honey mustard.",
+      "description": "Flour tortilla wrap with halal grilled chicken, romaine lettuce, shaved Parmesan, and Caesar dressing.",
       "meal_types": [
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -8004,28 +7938,24 @@
       "cuisine": "American",
       "ingredients": [
         {
-          "item": "Chicken breast (grilled)",
+          "item": "Flour tortilla",
+          "amount": "1"
+        },
+        {
+          "item": "Halal grilled chicken",
           "amount": "150g"
         },
         {
-          "item": "Whole wheat wrap",
-          "amount": "1 piece"
-        },
-        {
           "item": "Romaine lettuce",
-          "amount": "40g"
+          "amount": "60g"
         },
         {
-          "item": "Tomato",
-          "amount": "2 slices"
+          "item": "Parmesan cheese",
+          "amount": "20g"
         },
         {
-          "item": "Avocado",
-          "amount": "40g"
-        },
-        {
-          "item": "Honey mustard",
-          "amount": "1 tbsp"
+          "item": "Caesar dressing",
+          "amount": "2 tbsp"
         }
       ]
     },
@@ -8037,6 +7967,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -8080,13 +8011,14 @@
     },
     {
       "id": "us005",
-      "name": "Clam Chowder",
-      "description": "Thick and creamy New England clam chowder with clams, potato, celery and bacon in a bread bowl.",
+      "name": "Seafood Chowder",
+      "description": "A creamy halal seafood chowder loaded with prawns, fish chunks, and sweet corn in a rich milk broth.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -8106,32 +8038,24 @@
       "cuisine": "American",
       "ingredients": [
         {
-          "item": "Clams (canned)",
-          "amount": "120g"
-        },
-        {
-          "item": "Potato (diced)",
+          "item": "Prawns",
           "amount": "100g"
         },
         {
-          "item": "Heavy cream",
-          "amount": "100ml"
+          "item": "White fish fillet",
+          "amount": "100g"
         },
         {
-          "item": "Bacon",
-          "amount": "30g"
+          "item": "Potatoes",
+          "amount": "100g"
         },
         {
-          "item": "Celery",
-          "amount": "40g"
+          "item": "Whole milk",
+          "amount": "250ml"
         },
         {
-          "item": "Sourdough bread bowl",
-          "amount": "1 piece"
-        },
-        {
-          "item": "Onion",
-          "amount": "1/2"
+          "item": "Corn kernels",
+          "amount": "50g"
         }
       ]
     },
@@ -8201,6 +8125,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -8251,6 +8176,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -8363,7 +8289,7 @@
     {
       "id": "id002",
       "name": "Mie Goreng",
-      "description": "Indonesian stir-fried egg noodles with chicken, cabbage, carrot and kecap manis \u2014 sweeter than Malaysian version.",
+      "description": "Indonesian stir-fried egg noodles with chicken, cabbage, carrot and kecap manis — sweeter than Malaysian version.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -8544,7 +8470,7 @@
     {
       "id": "ph001",
       "name": "Chicken Adobo",
-      "description": "Philippine national dish \u2014 chicken braised in soy sauce, vinegar, garlic and bay leaves until tender and tangy.",
+      "description": "Philippine national dish — chicken braised in soy sauce, vinegar, garlic and bay leaves until tender and tangy.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -8661,13 +8587,14 @@
     },
     {
       "id": "ph003",
-      "name": "Pancit Canton",
-      "description": "Filipino stir-fried egg noodles with pork, shrimp, cabbage and carrots in a savoury soy-oyster sauce.",
+      "name": "Pancit Canton (Halal)",
+      "description": "Filipino stir-fried noodles with halal chicken, cabbage, carrots, and soy-calamansi sauce.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences"
       ],
       "allergens": [
@@ -8689,31 +8616,23 @@
       "ingredients": [
         {
           "item": "Canton noodles",
-          "amount": "150g"
+          "amount": "100g"
         },
         {
-          "item": "Pork belly (sliced)",
-          "amount": "60g"
-        },
-        {
-          "item": "Shrimp",
-          "amount": "60g"
+          "item": "Halal chicken breast",
+          "amount": "100g"
         },
         {
           "item": "Cabbage",
           "amount": "60g"
         },
         {
-          "item": "Carrot",
+          "item": "Carrots",
           "amount": "40g"
         },
         {
-          "item": "Oyster sauce",
-          "amount": "2 tbsp"
-        },
-        {
           "item": "Soy sauce",
-          "amount": "1 tbsp"
+          "amount": "2 tbsp"
         }
       ]
     },
@@ -8837,6 +8756,7 @@
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences"
@@ -9114,13 +9034,14 @@
     },
     {
       "id": "my004",
-      "name": "Bak Kut Teh",
-      "description": "Herbal pork rib soup simmered with garlic, pepper and Chinese herbs. Served with rice and fried dough.",
+      "name": "Chicken Bak Kut Teh",
+      "description": "Halal Malaysian herb broth soup with tender chicken, garlic, star anise, and white pepper.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk",
         "No Gluten"
@@ -9139,36 +9060,24 @@
       "cuisine": "Malaysian",
       "ingredients": [
         {
-          "item": "Pork ribs",
+          "item": "Halal chicken pieces",
           "amount": "200g"
         },
         {
           "item": "Garlic",
-          "amount": "6 cloves"
+          "amount": "4 cloves"
+        },
+        {
+          "item": "Star anise",
+          "amount": "2"
+        },
+        {
+          "item": "Cinnamon stick",
+          "amount": "1"
         },
         {
           "item": "White pepper",
-          "amount": "2 tsp"
-        },
-        {
-          "item": "Soy sauce",
-          "amount": "2 tbsp"
-        },
-        {
-          "item": "Dark soy sauce",
-          "amount": "1 tbsp"
-        },
-        {
-          "item": "Bak kut teh spice bag",
-          "amount": "1 sachet"
-        },
-        {
-          "item": "Youtiao (dough sticks)",
-          "amount": "2 pieces"
-        },
-        {
-          "item": "Rice (side)",
-          "amount": "150g cooked"
+          "amount": "1 tsp"
         }
       ]
     },
@@ -9399,6 +9308,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -9443,12 +9353,13 @@
     {
       "id": "w002",
       "name": "Mushroom Omelette",
-      "description": "Fluffy three-egg omelette filled with saut\u00e9ed mushrooms, spinach and melted cheddar cheese.",
+      "description": "Fluffy three-egg omelette filled with sautéed mushrooms, spinach and melted cheddar cheese.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences",
@@ -9503,6 +9414,7 @@
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk"
@@ -9555,13 +9467,14 @@
     },
     {
       "id": "w004",
-      "name": "Smoked Salmon Bagel",
-      "description": "Toasted sesame bagel with cream cheese, smoked salmon, capers, red onion and dill.",
+      "name": "Halal Smoked Salmon Bagel",
+      "description": "Toasted bagel with halal-certified smoked salmon, cream cheese, capers, red onion, and fresh dill.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -9584,43 +9497,36 @@
       "cuisine": "Western",
       "ingredients": [
         {
-          "item": "Sesame bagel",
-          "amount": "1 piece"
+          "item": "Bagel",
+          "amount": "1"
+        },
+        {
+          "item": "Halal smoked salmon",
+          "amount": "80g"
         },
         {
           "item": "Cream cheese",
           "amount": "40g"
         },
         {
-          "item": "Smoked salmon",
-          "amount": "80g"
-        },
-        {
           "item": "Capers",
           "amount": "1 tbsp"
         },
         {
-          "item": "Red onion (sliced)",
-          "amount": "20g"
-        },
-        {
-          "item": "Fresh dill",
-          "amount": "5g"
-        },
-        {
-          "item": "Lemon juice",
-          "amount": "1 tsp"
+          "item": "Red onion",
+          "amount": "1/4"
         }
       ]
     },
     {
       "id": "w005",
       "name": "Beef Stew with Bread",
-      "description": "Hearty slow-cooked beef chuck stew with carrots, potato, celery and thyme in a rich red wine gravy.",
+      "description": "Slow-cooked halal beef stew with root vegetables in a rich gravy, served with crusty bread.",
       "meal_types": [
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -9641,36 +9547,28 @@
       "cuisine": "Western",
       "ingredients": [
         {
-          "item": "Beef chuck (diced)",
-          "amount": "180g"
+          "item": "Halal beef chunks",
+          "amount": "200g"
         },
         {
-          "item": "Potato",
-          "amount": "100g"
-        },
-        {
-          "item": "Carrot",
+          "item": "Carrots",
           "amount": "80g"
         },
         {
-          "item": "Celery",
-          "amount": "40g"
+          "item": "Potatoes",
+          "amount": "100g"
         },
         {
-          "item": "Red wine",
-          "amount": "80ml"
+          "item": "Onion",
+          "amount": "1"
         },
         {
-          "item": "Beef stock",
+          "item": "Beef broth",
           "amount": "300ml"
         },
         {
-          "item": "Thyme & bay leaves",
-          "amount": "2 sprigs"
-        },
-        {
           "item": "Crusty bread",
-          "amount": "1 slice"
+          "amount": "2 slices"
         }
       ]
     },
@@ -9683,6 +9581,7 @@
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -9736,6 +9635,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences"
@@ -9795,6 +9695,7 @@
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Gluten"
@@ -9847,12 +9748,13 @@
     },
     {
       "id": "w009",
-      "name": "Club Sandwich",
-      "description": "Triple-decker toasted sandwich with turkey, bacon, lettuce, tomato, egg and mayo on white bread.",
+      "name": "Halal Club Sandwich",
+      "description": "Triple-decker sandwich with halal turkey, halal beef bacon, lettuce, tomato, and cheese on toasted bread.",
       "meal_types": [
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -9877,39 +9779,36 @@
           "amount": "3 slices"
         },
         {
-          "item": "Turkey slices",
-          "amount": "80g"
+          "item": "Halal turkey slices",
+          "amount": "60g"
         },
         {
-          "item": "Bacon",
-          "amount": "2 strips"
+          "item": "Halal beef bacon",
+          "amount": "3 strips"
         },
         {
           "item": "Lettuce",
-          "amount": "20g"
+          "amount": "2 leaves"
         },
         {
           "item": "Tomato",
           "amount": "2 slices"
         },
         {
-          "item": "Fried egg",
-          "amount": "1 whole"
-        },
-        {
-          "item": "Mayo",
-          "amount": "2 tbsp"
+          "item": "Mayonnaise",
+          "amount": "1 tbsp"
         }
       ]
     },
     {
       "id": "w010",
       "name": "Caesar Wrap",
-      "description": "Classic Caesar salad ingredients wrapped in a large flour tortilla \u2014 romaine, chicken, croutons and Caesar dressing.",
+      "description": "Flour tortilla wrap with halal grilled chicken, romaine, Parmesan, and Caesar dressing — a quick halal lunch.",
       "meal_types": [
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -9931,28 +9830,24 @@
       "cuisine": "Western",
       "ingredients": [
         {
-          "item": "Flour tortilla (large)",
-          "amount": "1 piece"
+          "item": "Flour tortilla",
+          "amount": "1"
         },
         {
-          "item": "Grilled chicken breast",
-          "amount": "120g"
+          "item": "Halal grilled chicken",
+          "amount": "150g"
         },
         {
           "item": "Romaine lettuce",
           "amount": "60g"
         },
         {
+          "item": "Parmesan cheese",
+          "amount": "20g"
+        },
+        {
           "item": "Caesar dressing",
           "amount": "2 tbsp"
-        },
-        {
-          "item": "Parmesan",
-          "amount": "15g"
-        },
-        {
-          "item": "Croutons",
-          "amount": "20g"
         }
       ]
     },
@@ -10017,6 +9912,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences",
@@ -10059,6 +9955,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -10102,6 +9999,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -10147,7 +10045,7 @@
     {
       "id": "sn005",
       "name": "Teh Tarik",
-      "description": "Malaysia's beloved pulled milk tea \u2014 strong black tea blended with condensed milk, poured high to create froth.",
+      "description": "Malaysia's beloved pulled milk tea — strong black tea blended with condensed milk, poured high to create froth.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack"
@@ -10188,7 +10086,7 @@
     {
       "id": "sn006",
       "name": "Kuih Lapis",
-      "description": "Colourful steamed layered rice flour and coconut milk kuih \u2014 sweet, chewy and traditionally Malaysian.",
+      "description": "Colourful steamed layered rice flour and coconut milk kuih — sweet, chewy and traditionally Malaysian.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack"
@@ -10287,13 +10185,14 @@
     },
     {
       "id": "jp009",
-      "name": "Udon Noodle Soup",
-      "description": "Thick chewy wheat noodles in a light dashi broth with tempura bits, spring onion and fish cake.",
+      "name": "Halal Udon Noodle Soup",
+      "description": "Thick chewy udon noodles in halal chicken-dashi broth with fishcake, spring onion, and tempura bits.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk"
       ],
@@ -10316,39 +10215,36 @@
       "ingredients": [
         {
           "item": "Udon noodles",
-          "amount": "200g"
+          "amount": "150g"
         },
         {
-          "item": "Dashi broth",
+          "item": "Halal chicken broth",
           "amount": "400ml"
         },
         {
-          "item": "Tempura crumbs (tenkasu)",
-          "amount": "20g"
-        },
-        {
-          "item": "Fish cake (kamaboko)",
-          "amount": "40g"
+          "item": "Halal fishcake",
+          "amount": "2 slices"
         },
         {
           "item": "Spring onion",
-          "amount": "1 tbsp"
+          "amount": "1 stalk"
         },
         {
           "item": "Soy sauce",
-          "amount": "2 tbsp"
+          "amount": "1 tbsp"
         }
       ]
     },
     {
       "id": "jp010",
       "name": "Salmon Teriyaki Bowl",
-      "description": "Pan-seared salmon glazed with teriyaki sauce over Japanese rice with edamame and sesame.",
+      "description": "Pan-seared halal salmon fillet glazed with teriyaki sauce, served over steamed rice with pickled ginger.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk"
@@ -10370,41 +10266,38 @@
       "cuisine": "Japanese",
       "ingredients": [
         {
-          "item": "Salmon fillet",
-          "amount": "150g"
+          "item": "Halal salmon fillet",
+          "amount": "180g"
         },
         {
           "item": "Teriyaki sauce",
           "amount": "3 tbsp"
         },
         {
-          "item": "Japanese rice",
-          "amount": "150g cooked"
+          "item": "Steamed rice",
+          "amount": "150g"
         },
         {
-          "item": "Edamame",
-          "amount": "50g"
+          "item": "Pickled ginger",
+          "amount": "20g"
         },
         {
           "item": "Sesame seeds",
           "amount": "1 tsp"
-        },
-        {
-          "item": "Spring onion",
-          "amount": "1 tbsp"
         }
       ]
     },
     {
       "id": "kr006",
       "name": "Sundubu Jjigae (Soft Tofu Stew)",
-      "description": "Spicy bubbling soft tofu stew with seafood, mushrooms and a raw egg cracked in at the end.",
+      "description": "Korean soft tofu stew with halal beef and egg in a spicy gochugaru broth.",
       "meal_types": [
         "Breakfast",
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Gluten"
@@ -10430,40 +10323,33 @@
           "amount": "200g"
         },
         {
-          "item": "Clams or shrimp",
+          "item": "Halal beef mince",
           "amount": "80g"
         },
         {
-          "item": "Mushrooms",
-          "amount": "40g"
+          "item": "Egg",
+          "amount": "1"
         },
         {
           "item": "Gochugaru",
-          "amount": "2 tbsp"
+          "amount": "1 tbsp"
         },
         {
-          "item": "Egg",
-          "amount": "1 whole"
-        },
-        {
-          "item": "Sesame oil",
-          "amount": "1 tsp"
-        },
-        {
-          "item": "Rice (side)",
-          "amount": "100g cooked"
+          "item": "Beef broth",
+          "amount": "300ml"
         }
       ]
     },
     {
       "id": "kr007",
       "name": "Samgyetang (Ginseng Chicken Soup)",
-      "description": "Whole baby chicken stuffed with glutinous rice, ginseng and jujube dates, slow-simmered in clear broth.",
+      "description": "Korean ginseng chicken soup with halal whole chicken, ginseng, jujubes, and sticky rice in a nourishing broth.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -10482,28 +10368,24 @@
       "cuisine": "Korean",
       "ingredients": [
         {
-          "item": "Cornish hen (small chicken)",
-          "amount": "400g"
-        },
-        {
-          "item": "Glutinous rice",
-          "amount": "60g dry"
+          "item": "Halal whole baby chicken",
+          "amount": "1"
         },
         {
           "item": "Ginseng root",
           "amount": "1 piece"
         },
         {
-          "item": "Jujube dates",
-          "amount": "3 pieces"
+          "item": "Glutinous rice",
+          "amount": "50g"
+        },
+        {
+          "item": "Jujubes (red dates)",
+          "amount": "3"
         },
         {
           "item": "Garlic",
           "amount": "4 cloves"
-        },
-        {
-          "item": "Spring onion",
-          "amount": "2 stalks"
         }
       ]
     },
@@ -10674,7 +10556,7 @@
     {
       "id": "vn006",
       "name": "Bun Bo Hue",
-      "description": "Spicy lemongrass beef noodle soup from Hue \u2014 thicker round noodles in a rich, fragrant chili-lemongrass broth.",
+      "description": "Spicy lemongrass beef noodle soup from Hue — thicker round noodles in a rich, fragrant chili-lemongrass broth.",
       "meal_types": [
         "Breakfast",
         "Lunch"
@@ -10732,12 +10614,13 @@
     {
       "id": "mx006",
       "name": "Guacamole with Tortilla Chips",
-      "description": "Fresh avocado guacamole with lime, cilantro, jalape\u00f1o and red onion served with crispy tortilla chips.",
+      "description": "Fresh avocado guacamole with lime, cilantro, jalapeño and red onion served with crispy tortilla chips.",
       "meal_types": [
         "Afternoon Snack",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -10769,7 +10652,7 @@
           "amount": "10g"
         },
         {
-          "item": "Jalape\u00f1o",
+          "item": "Jalapeño",
           "amount": "1/2"
         },
         {
@@ -10848,6 +10731,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -10904,12 +10788,13 @@
     {
       "id": "it009",
       "name": "Chicken Piccata",
-      "description": "Thin chicken breast cutlets pan-fried in lemon-butter-caper sauce, served with pasta or mashed potato.",
+      "description": "Pan-seared halal chicken breast in a light lemon-butter-caper sauce, served with pasta.",
       "meal_types": [
         "Dinner",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -10930,44 +10815,37 @@
       "cuisine": "Italian",
       "ingredients": [
         {
-          "item": "Chicken breast (thin-cut)",
-          "amount": "180g"
-        },
-        {
-          "item": "Lemon juice",
-          "amount": "3 tbsp"
+          "item": "Halal chicken breast",
+          "amount": "200g"
         },
         {
           "item": "Capers",
           "amount": "2 tbsp"
         },
         {
+          "item": "Lemon juice",
+          "amount": "2 tbsp"
+        },
+        {
           "item": "Butter",
-          "amount": "2 tbsp"
+          "amount": "20g"
         },
         {
-          "item": "Chicken stock",
+          "item": "Chicken broth",
           "amount": "100ml"
-        },
-        {
-          "item": "Flour (dusting)",
-          "amount": "2 tbsp"
-        },
-        {
-          "item": "Pasta (side)",
-          "amount": "80g cooked"
         }
       ]
     },
     {
       "id": "gr005",
       "name": "Lamb Gyros",
-      "description": "Rotisserie lamb carved and served in pita with tzatziki, tomato, red onion and chips.",
+      "description": "Sliced halal lamb shawarma-style in warm pita with tzatziki, tomatoes, onions, and lemon.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -10987,40 +10865,37 @@
       "cuisine": "Greek",
       "ingredients": [
         {
-          "item": "Lamb gyros meat",
-          "amount": "150g"
+          "item": "Halal lamb leg",
+          "amount": "200g"
         },
         {
           "item": "Pita bread",
-          "amount": "1 piece"
+          "amount": "1"
         },
         {
-          "item": "Tzatziki",
-          "amount": "50g"
+          "item": "Tzatziki sauce",
+          "amount": "3 tbsp"
         },
         {
-          "item": "Tomato (sliced)",
-          "amount": "60g"
+          "item": "Tomato",
+          "amount": "1"
         },
         {
-          "item": "Red onion",
-          "amount": "20g"
-        },
-        {
-          "item": "Chips (optional)",
-          "amount": "40g"
+          "item": "Onion",
+          "amount": "1/2"
         }
       ]
     },
     {
       "id": "gr006",
       "name": "Avgolemono Soup",
-      "description": "Silky Greek chicken-lemon-egg soup \u2014 rice in a broth thickened with eggs and fresh lemon juice.",
+      "description": "Silky Greek chicken-lemon-egg soup — rice in a broth thickened with eggs and fresh lemon juice.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -11591,13 +11466,14 @@
     {
       "id": "br003",
       "name": "Coxinha (Chicken Croquette)",
-      "description": "Teardrop-shaped fried dough filled with shredded chicken and catupiry cream cheese. Brazil's most popular street snack.",
+      "description": "Brazilian fried croquettes with creamy halal chicken filling, coated in breadcrumbs and deep-fried golden.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -11618,28 +11494,24 @@
       "cuisine": "Brazilian",
       "ingredients": [
         {
-          "item": "Chicken breast (shredded)",
-          "amount": "80g"
+          "item": "Halal chicken breast",
+          "amount": "150g"
         },
         {
-          "item": "Catupiry cheese",
-          "amount": "30g"
-        },
-        {
-          "item": "Wheat dough",
-          "amount": "80g"
-        },
-        {
-          "item": "Egg (for coating)",
-          "amount": "1 whole"
+          "item": "Cream cheese",
+          "amount": "50g"
         },
         {
           "item": "Breadcrumbs",
-          "amount": "30g"
+          "amount": "60g"
         },
         {
-          "item": "Cooking oil",
-          "amount": "for frying"
+          "item": "Egg",
+          "amount": "1"
+        },
+        {
+          "item": "Onion",
+          "amount": "1/4"
         }
       ]
     },
@@ -11652,6 +11524,7 @@
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "Vegan",
         "No Preferences",
@@ -11702,7 +11575,7 @@
     {
       "id": "et003",
       "name": "Tibs",
-      "description": "Pan-fried spiced beef or lamb with onions, jalape\u00f1os, rosemary and tomatoes. Served with injera.",
+      "description": "Pan-fried spiced beef or lamb with onions, jalapeños, rosemary and tomatoes. Served with injera.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -11735,7 +11608,7 @@
           "amount": "1 medium"
         },
         {
-          "item": "Jalape\u00f1o",
+          "item": "Jalapeño",
           "amount": "2 pieces"
         },
         {
@@ -11759,12 +11632,13 @@
     {
       "id": "us006",
       "name": "Buffalo Chicken Wings",
-      "description": "Crispy baked chicken wings tossed in buttery Frank's hot sauce, served with blue cheese dip and celery.",
+      "description": "Crispy halal chicken wings tossed in tangy buffalo sauce, served with blue cheese dip and celery.",
       "meal_types": [
         "Dinner",
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Gluten"
@@ -11785,16 +11659,16 @@
       "cuisine": "American",
       "ingredients": [
         {
-          "item": "Chicken wings",
+          "item": "Halal chicken wings",
           "amount": "300g"
         },
         {
-          "item": "Frank's hot sauce",
-          "amount": "4 tbsp"
+          "item": "Buffalo hot sauce",
+          "amount": "60ml"
         },
         {
           "item": "Butter",
-          "amount": "2 tbsp"
+          "amount": "20g"
         },
         {
           "item": "Blue cheese dip",
@@ -11802,23 +11676,20 @@
         },
         {
           "item": "Celery sticks",
-          "amount": "3 stalks"
-        },
-        {
-          "item": "Garlic powder",
-          "amount": "1 tsp"
+          "amount": "3"
         }
       ]
     },
     {
       "id": "us007",
       "name": "Mac and Cheese",
-      "description": "Creamy homemade macaroni and cheese with sharp cheddar b\u00e9chamel, baked with a golden breadcrumb crust.",
+      "description": "Creamy homemade macaroni and cheese with sharp cheddar béchamel, baked with a golden breadcrumb crust.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -11867,12 +11738,13 @@
     {
       "id": "sp004",
       "name": "Gambas al Ajillo",
-      "description": "Spanish garlic prawns saut\u00e9ed in olive oil with dried chili and sherry. Classic tapas served with crusty bread.",
+      "description": "Spanish garlic prawns sautéed in olive oil with dried chili and sherry. Classic tapas served with crusty bread.",
       "meal_types": [
         "Dinner",
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -11925,7 +11797,7 @@
     },
     {
       "id": "sp005",
-      "name": "Tortilla Espa\u00f1ola",
+      "name": "Tortilla Española",
       "description": "Classic Spanish egg and potato omelette cooked slowly in olive oil, served at room temperature.",
       "meal_types": [
         "Breakfast",
@@ -11933,6 +11805,7 @@
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Milk",
@@ -11981,6 +11854,7 @@
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences"
       ],
@@ -12034,6 +11908,7 @@
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -12088,6 +11963,7 @@
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences"
@@ -12143,6 +12019,7 @@
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences",
@@ -12195,12 +12072,13 @@
     },
     {
       "id": "w015",
-      "name": "Full English Breakfast",
-      "description": "The classic British fry-up: eggs, bacon, sausages, beans, grilled tomato, mushrooms and toast.",
+      "name": "Halal Full Breakfast",
+      "description": "Hearty full breakfast with halal beef sausages, turkey bacon, fried eggs, baked beans, grilled tomato, and toast.",
       "meal_types": [
         "Breakfast"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -12221,28 +12099,20 @@
       "cuisine": "Western",
       "ingredients": [
         {
-          "item": "Eggs (fried)",
-          "amount": "2 whole"
+          "item": "Halal beef sausages",
+          "amount": "2"
         },
         {
-          "item": "Back bacon",
-          "amount": "2 rashers"
+          "item": "Halal turkey bacon",
+          "amount": "3 strips"
         },
         {
-          "item": "Pork sausages",
-          "amount": "2 pieces"
+          "item": "Eggs",
+          "amount": "2"
         },
         {
           "item": "Baked beans",
-          "amount": "60g"
-        },
-        {
-          "item": "Grilled tomato",
-          "amount": "1 half"
-        },
-        {
-          "item": "Button mushrooms",
-          "amount": "60g"
+          "amount": "80g"
         },
         {
           "item": "Toast",
@@ -12295,7 +12165,7 @@
     {
       "id": "sn008",
       "name": "Roti John",
-      "description": "Malaysian-style omelette sandwich \u2014 baguette filled with spiced minced chicken and egg, pan-fried in butter.",
+      "description": "Malaysian-style omelette sandwich — baguette filled with spiced minced chicken and egg, pan-fried in butter.",
       "meal_types": [
         "Breakfast",
         "Morning Snack",
@@ -12357,6 +12227,7 @@
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Milk"
@@ -12405,7 +12276,7 @@
     {
       "id": "sn010",
       "name": "Dates with Almonds",
-      "description": "Medjool dates stuffed with whole almonds \u2014 a traditional Middle Eastern energy-dense snack.",
+      "description": "Medjool dates stuffed with whole almonds — a traditional Middle Eastern energy-dense snack.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack"
@@ -12445,11 +12316,12 @@
     {
       "id": "sn011",
       "name": "Mochi Ice Cream",
-      "description": "Soft Japanese rice cake filled with ice cream \u2014 matcha, strawberry or vanilla. A delicate Japanese sweet.",
+      "description": "Soft Japanese rice cake filled with ice cream — matcha, strawberry or vanilla. A delicate Japanese sweet.",
       "meal_types": [
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Gluten"
@@ -12486,12 +12358,13 @@
     {
       "id": "pe001",
       "name": "Lomo Saltado",
-      "description": "Peruvian stir-fry of beef strips, tomatoes, yellow chili and onions tossed with chips and served over rice.",
+      "description": "Peruvian stir-fry of halal beef strips, onions, tomatoes, and chips in soy-vinegar sauce with rice.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk"
@@ -12512,48 +12385,41 @@
       "cuisine": "Peruvian",
       "ingredients": [
         {
-          "item": "Beef strips (sirloin)",
-          "amount": "150g"
+          "item": "Halal beef strips",
+          "amount": "200g"
         },
         {
-          "item": "Tomato (wedged)",
+          "item": "Chips",
           "amount": "100g"
         },
         {
-          "item": "Yellow aji chili",
-          "amount": "2 pieces"
+          "item": "Tomato",
+          "amount": "1"
         },
         {
-          "item": "Red onion (wedged)",
-          "amount": "80g"
-        },
-        {
-          "item": "Chips (french fries)",
-          "amount": "100g"
+          "item": "Onion",
+          "amount": "1"
         },
         {
           "item": "Soy sauce",
           "amount": "2 tbsp"
         },
         {
-          "item": "Vinegar",
-          "amount": "1 tbsp"
-        },
-        {
-          "item": "Rice",
-          "amount": "120g cooked"
+          "item": "White rice",
+          "amount": "100g"
         }
       ]
     },
     {
       "id": "pe002",
       "name": "Ceviche",
-      "description": "Fresh raw fish cured in lime juice with red onion, chili, coriander and sweet potato. Peru's national dish.",
+      "description": "Fresh Peruvian ceviche with halal-certified fish, lime juice, red onion, coriander, and ají amarillo.",
       "meal_types": [
         "Lunch",
         "Afternoon Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -12575,44 +12441,37 @@
       "cuisine": "Peruvian",
       "ingredients": [
         {
-          "item": "White fish (sea bass or sole)",
-          "amount": "180g"
+          "item": "Halal white fish",
+          "amount": "200g"
         },
         {
-          "item": "Lime juice (fresh)",
-          "amount": "80ml"
+          "item": "Lime juice",
+          "amount": "60ml"
         },
         {
-          "item": "Red onion (thinly sliced)",
-          "amount": "60g"
-        },
-        {
-          "item": "Aji amarillo (yellow chili)",
-          "amount": "1 tbsp"
+          "item": "Red onion",
+          "amount": "1/2"
         },
         {
           "item": "Coriander",
-          "amount": "10g"
+          "amount": "handful"
         },
         {
-          "item": "Sweet potato (boiled)",
-          "amount": "60g"
-        },
-        {
-          "item": "Corn on cob",
-          "amount": "40g"
+          "item": "Ají amarillo",
+          "amount": "1 tsp"
         }
       ]
     },
     {
       "id": "ar001",
-      "name": "Asado (Argentine BBQ)",
-      "description": "Classic Argentine wood-fire grilled beef ribs, sausages and offal with chimichurri sauce.",
+      "name": "Halal Asado (Beef BBQ)",
+      "description": "Argentine-style grilled halal beef — short ribs, flank steak, and beef sausages over charcoal with chimichurri.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk",
@@ -12631,33 +12490,34 @@
       "cuisine": "Argentinian",
       "ingredients": [
         {
-          "item": "Beef ribs",
-          "amount": "250g"
+          "item": "Halal beef short ribs",
+          "amount": "150g"
         },
         {
-          "item": "Chorizo sausage",
-          "amount": "80g"
+          "item": "Halal beef flank steak",
+          "amount": "150g"
+        },
+        {
+          "item": "Halal beef sausages",
+          "amount": "100g"
         },
         {
           "item": "Chimichurri sauce",
-          "amount": "3 tbsp"
-        },
-        {
-          "item": "Bread (side)",
-          "amount": "1 slice"
+          "amount": "2 tbsp"
         }
       ]
     },
     {
       "id": "ar002",
-      "name": "Empanadas",
-      "description": "Golden baked pastry pockets filled with spiced ground beef, olives and hard-boiled egg. Argentine street food.",
+      "name": "Halal Beef Empanadas",
+      "description": "Golden baked pastry filled with spiced halal beef mince, olives, boiled egg, and onion.",
       "meal_types": [
         "Lunch",
         "Afternoon Snack",
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences"
       ],
@@ -12677,28 +12537,28 @@
       "cuisine": "Argentinian",
       "ingredients": [
         {
-          "item": "Pastry dough",
-          "amount": "80g"
+          "item": "Empanada dough",
+          "amount": "150g"
         },
         {
-          "item": "Ground beef",
-          "amount": "80g"
-        },
-        {
-          "item": "Hard-boiled egg",
-          "amount": "1/2"
-        },
-        {
-          "item": "Olives (sliced)",
-          "amount": "10g"
+          "item": "Halal beef mince",
+          "amount": "120g"
         },
         {
           "item": "Onion",
-          "amount": "30g"
+          "amount": "1/2"
         },
         {
-          "item": "Cumin & paprika",
-          "amount": "1 tsp each"
+          "item": "Olives",
+          "amount": "10"
+        },
+        {
+          "item": "Boiled egg",
+          "amount": "1"
+        },
+        {
+          "item": "Cumin",
+          "amount": "1 tsp"
         }
       ]
     },
@@ -12818,13 +12678,14 @@
     },
     {
       "id": "cn009",
-      "name": "Peking Duck Pancakes",
-      "description": "Crispy roast duck with thin pancakes, hoisin sauce, spring onion and cucumber. Chinese banquet showpiece.",
+      "name": "Halal Peking Duck Pancakes",
+      "description": "Crispy halal-certified roasted duck in thin pancakes with hoisin sauce, cucumber, and spring onion.",
       "meal_types": [
         "Dinner",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk"
       ],
@@ -12845,24 +12706,24 @@
       "cuisine": "Chinese",
       "ingredients": [
         {
-          "item": "Roast duck meat",
-          "amount": "120g"
+          "item": "Halal duck",
+          "amount": "200g"
         },
         {
           "item": "Thin pancakes",
-          "amount": "4 pieces"
+          "amount": "6"
         },
         {
           "item": "Hoisin sauce",
           "amount": "3 tbsp"
         },
         {
-          "item": "Spring onion (julienned)",
-          "amount": "2 stalks"
+          "item": "Cucumber",
+          "amount": "1/2"
         },
         {
-          "item": "Cucumber (julienned)",
-          "amount": "40g"
+          "item": "Spring onion",
+          "amount": "2 stalks"
         }
       ]
     },
@@ -12980,13 +12841,14 @@
     },
     {
       "id": "my010",
-      "name": "Kway Chap",
-      "description": "Penang-style braised pork offal served in flat rice sheet noodles with dark soy broth, tofu and braised egg.",
+      "name": "Chicken Kway Chap",
+      "description": "Halal flat rice noodles in herbal broth with tender halal chicken, tofu puffs, and braised eggs.",
       "meal_types": [
         "Breakfast",
         "Lunch"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk",
         "No Gluten"
@@ -13006,32 +12868,24 @@
       "cuisine": "Malaysian",
       "ingredients": [
         {
-          "item": "Flat rice sheets (kway)",
+          "item": "Flat rice noodles",
           "amount": "150g"
         },
         {
-          "item": "Braised pork belly",
-          "amount": "80g"
+          "item": "Halal chicken",
+          "amount": "150g"
         },
         {
-          "item": "Tofu puff (tau pok)",
-          "amount": "40g"
+          "item": "Braised eggs",
+          "amount": "2"
         },
         {
-          "item": "Braised egg",
-          "amount": "1 whole"
+          "item": "Tofu puffs",
+          "amount": "60g"
         },
         {
-          "item": "Dark soy broth",
-          "amount": "300ml"
-        },
-        {
-          "item": "Pig intestines (optional)",
-          "amount": "40g"
-        },
-        {
-          "item": "Garlic oil",
-          "amount": "1 tsp"
+          "item": "Soy sauce",
+          "amount": "2 tbsp"
         }
       ]
     },
@@ -13095,7 +12949,7 @@
     {
       "id": "in013",
       "name": "Pav Bhaji",
-      "description": "Mumbai street food \u2014 spiced mashed vegetable curry served with buttered pav buns and raw onion with lime.",
+      "description": "Mumbai street food — spiced mashed vegetable curry served with buttered pav buns and raw onion with lime.",
       "meal_types": [
         "Breakfast",
         "Lunch"
@@ -13273,6 +13127,7 @@
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "High Protein",
         "No Preferences"
@@ -13318,12 +13173,13 @@
     {
       "id": "w017",
       "name": "Chicken Noodle Soup",
-      "description": "Classic comforting chicken soup with egg noodles, carrots, celery and fresh thyme. Great when sick or cold.",
+      "description": "Comforting soup with halal chicken, egg noodles, carrots, and celery in a clear golden broth.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "High Protein",
         "No Preferences",
         "No Milk"
@@ -13344,39 +13200,31 @@
       "cuisine": "Western",
       "ingredients": [
         {
-          "item": "Chicken breast (shredded)",
-          "amount": "120g"
+          "item": "Halal chicken breast",
+          "amount": "150g"
         },
         {
           "item": "Egg noodles",
           "amount": "80g"
         },
         {
-          "item": "Carrot (diced)",
+          "item": "Carrots",
           "amount": "60g"
         },
         {
           "item": "Celery",
-          "amount": "40g"
-        },
-        {
-          "item": "Onion",
-          "amount": "1/2"
+          "amount": "2 stalks"
         },
         {
           "item": "Chicken broth",
           "amount": "500ml"
-        },
-        {
-          "item": "Thyme & bay leaf",
-          "amount": "1 sprig each"
         }
       ]
     },
     {
       "id": "u001",
       "name": "Boiled Sweet Potato",
-      "description": "Simply boiled or steamed sweet potato \u2014 a natural, clean carbohydrate source rich in beta-carotene.",
+      "description": "Simply boiled or steamed sweet potato — a natural, clean carbohydrate source rich in beta-carotene.",
       "meal_types": [
         "Morning Snack",
         "Afternoon Snack",
@@ -13415,7 +13263,7 @@
     {
       "id": "u002",
       "name": "Tuna Rice (Meal Prep)",
-      "description": "Simple high-protein meal prep bowl \u2014 canned tuna over rice with soy sauce, sesame and cucumber.",
+      "description": "Simple high-protein meal prep bowl — canned tuna over rice with soy sauce, sesame and cucumber.",
       "meal_types": [
         "Lunch",
         "Dinner"
@@ -13478,6 +13326,7 @@
         "Morning Snack"
       ],
       "diet_tags": [
+        "Halal",
         "Vegetarian",
         "No Preferences",
         "No Milk"
@@ -13517,13 +13366,14 @@
     },
     {
       "id": "jp011",
-      "name": "Yakisoba",
-      "description": "Japanese stir-fried wheat noodles with pork, cabbage, carrots and Worcestershire-based yakisoba sauce.",
+      "name": "Halal Yakisoba",
+      "description": "Japanese stir-fried noodles with halal chicken, cabbage, and carrots in a sweet-savoury yakisoba sauce.",
       "meal_types": [
         "Lunch",
         "Dinner"
       ],
       "diet_tags": [
+        "Halal",
         "No Preferences",
         "No Milk"
       ],
@@ -13548,28 +13398,20 @@
           "amount": "150g"
         },
         {
-          "item": "Pork belly (sliced)",
-          "amount": "80g"
+          "item": "Halal chicken breast",
+          "amount": "100g"
         },
         {
           "item": "Cabbage",
           "amount": "80g"
         },
         {
-          "item": "Carrot",
+          "item": "Carrots",
           "amount": "40g"
         },
         {
           "item": "Yakisoba sauce",
           "amount": "3 tbsp"
-        },
-        {
-          "item": "Pickled ginger (topping)",
-          "amount": "10g"
-        },
-        {
-          "item": "Aonori (seaweed flakes)",
-          "amount": "1 tsp"
         }
       ]
     },
@@ -13689,5 +13531,5 @@
       ]
     }
   ],
-  "price_note": "Prices are hawker/mamak baseline (RM). Apply multipliers: home-cooked \u00d70.35, hawker \u00d71.0, casual restaurant \u00d71.6, premium restaurant \u00d72.5"
+  "price_note": "Prices are hawker/mamak baseline (RM). Apply multipliers: home-cooked ×0.35, hawker ×1.0, casual restaurant ×1.6, premium restaurant ×2.5"
 }
