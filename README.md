@@ -1,4 +1,4 @@
-# NutriFlow v.8.1 — Health & Meal Planner
+# NutriFlow v0.8.1 — Health & Meal Planner
 
 AI-powered nutrition and meal planning chatbot. Works locally with no server needed.
 
